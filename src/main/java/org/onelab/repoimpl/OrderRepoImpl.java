@@ -16,8 +16,6 @@ import java.util.Optional;
 
 public class OrderRepoImpl implements OrderRepo {
 
-    private Logger logger = LoggerFactory.getLogger(UserRepoImpl.class);
-
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -51,22 +49,14 @@ public class OrderRepoImpl implements OrderRepo {
     @Override
     public Optional<Orders> findById(int id) {
         String sql = "SELECT id from orders where user_id = ?";
-        Orders order = null;
-        try {
-            order = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
-        } catch (DataAccessException exception) {
-            logger.info("Order not found: " + id);
-        }
+        Orders order = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
         return Optional.ofNullable(order);
     }
 
     @Override
     public void save(Orders order) {
         String sql = "insert into orders (user_id) values(?)";
-        int insert = jdbcTemplate.update(sql, order);
-        if (insert == 1) {
-            logger.info("New order created: " + order);
-        }
+        jdbcTemplate.update(sql, order);
     }
 
     @Override
@@ -77,10 +67,7 @@ public class OrderRepoImpl implements OrderRepo {
     @Override
     public void remove(int id) {
         String sql = "delete from orders where id = ?";
-        int delete = jdbcTemplate.update(sql, id);
-        if (delete == 1) {
-            logger.info("order deleted: " + id);
-        }
+        jdbcTemplate.update(sql, id);
     }
 
     @Override

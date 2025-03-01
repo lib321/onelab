@@ -2,7 +2,6 @@ package org.onelab.repoimpl;
 
 import org.onelab.model.Orders;
 import org.onelab.model.Users;
-import org.onelab.repository.DAO;
 import org.onelab.repository.UserRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,8 +15,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserRepoImpl implements UserRepo {
-
-    private Logger logger = LoggerFactory.getLogger(UserRepoImpl.class);
 
     private JdbcTemplate jdbcTemplate;
 
@@ -52,40 +49,26 @@ public class UserRepoImpl implements UserRepo {
     @Override
     public Optional<Users> findById(int id) {
         String sql = "SELECT id, firstname, lastname from users where id = ?";
-        Users users = null;
-        try {
-            users = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
-        } catch (DataAccessException exception) {
-            logger.info("User not found: " + id);
-        }
+        Users users = jdbcTemplate.queryForObject(sql, new Object[]{id}, rowMapper);
         return Optional.ofNullable(users);
     }
 
     @Override
     public void save(Users users) {
         String sql = "insert into users(firstname,lastname) values(?,?)";
-        int insert = jdbcTemplate.update(sql, users.getFirstname(), users.getLastname());
-        if (insert == 1) {
-            logger.info("New user created: " + users.getFirstname());
-        }
+        jdbcTemplate.update(sql, users.getFirstname(), users.getLastname());
     }
 
 
     @Override
     public void update(Users users, int id) {
         String sql = "update users set firstname = ?, lastname = ? where id = ?";
-        int update = jdbcTemplate.update(sql, users.getFirstname(), users.getLastname(), id);
-        if (update == 1) {
-            logger.info("user updated: " + users.getFirstname());
-        }
+        jdbcTemplate.update(sql, users.getFirstname(), users.getLastname(), id);
     }
 
     @Override
     public void remove(int id) {
         String sql = "delete from users where id = ?";
-        int delete = jdbcTemplate.update(sql, id);
-        if (delete == 1) {
-            logger.info("user deleted: " + id);
-        }
+        jdbcTemplate.update(sql, id);
     }
 }

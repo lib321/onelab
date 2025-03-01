@@ -3,7 +3,7 @@ package org.onelab.repository;
 import java.util.List;
 import java.util.Optional;
 
-public interface DAO<T> {
+public interface CustomCrudRepo<T> {
 
     List<T> findAll();
 

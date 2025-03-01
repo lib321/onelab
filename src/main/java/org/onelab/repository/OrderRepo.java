@@ -5,7 +5,7 @@ import org.onelab.model.Orders;
 
 import java.util.List;
 
-public interface OrderRepo extends DAO<Orders>{
+public interface OrderRepo extends CustomCrudRepo<Orders> {
 
     List<Orders> findAllByUserId(int id);
 
