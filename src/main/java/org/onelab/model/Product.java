@@ -1,8 +1,10 @@
-package org.onelab.dto;
+package org.onelab.model;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Builder
 @Getter
@@ -12,5 +14,5 @@ public class Product {
     private int id;
     private String name;
     private int price;
-    private Order order;
+    private List<OrderProducts> orderProducts;
 }

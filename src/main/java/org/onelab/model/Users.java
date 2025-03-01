@@ -1,19 +1,18 @@
-package org.onelab.dto;
+package org.onelab.model;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Builder
 @Getter
 @Setter
-public class User {
+public class Users {
 
     private int id;
     private String firstname;
     private String lastname;
-    private Set<Order> orders;
+    private List<Orders> orders;
 }

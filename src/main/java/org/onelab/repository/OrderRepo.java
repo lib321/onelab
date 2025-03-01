@@ -1,18 +1,13 @@
 package org.onelab.repository;
 
-import org.onelab.dto.Order;
-import org.onelab.dto.Product;
+import org.onelab.model.OrderProducts;
+import org.onelab.model.Orders;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface OrderRepo {
+public interface OrderRepo extends DAO<Orders>{
 
-    void save(Order order);
+    List<Orders> findAllByUserId(int id);
 
-    List<Order> findAll();
-
-    Optional<Order> findById(int id);
-
-    void remove(Order order);
+    List<OrderProducts> findProductsByOrderId(int orderId);
 }

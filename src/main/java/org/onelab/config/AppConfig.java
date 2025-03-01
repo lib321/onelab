@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
@@ -20,17 +21,17 @@ public class AppConfig {
 
     @Bean
     public OrderRepoImpl orderRepo() {
-        return new OrderRepoImpl();
+        return new OrderRepoImpl(jdbcTemplate());
     }
 
     @Bean
     public ProductRepoImpl productRepo() {
-        return new ProductRepoImpl();
+        return new ProductRepoImpl(jdbcTemplate());
     }
 
     @Bean
     public UserRepoImpl userRepo() {
-        return new UserRepoImpl();
+        return new UserRepoImpl(jdbcTemplate(), orderRepo());
     }
 
     @Bean
@@ -44,10 +45,17 @@ public class AppConfig {
             return new EmbeddedDatabaseBuilder()
                     .setType(EmbeddedDatabaseType.H2)
                     .addScript("classpath:jdbc/schema.sql")
-                    .addScript("classpath:jdbc/test-data.sql").build();
+                    .addScript("classpath:jdbc/data.sql").build();
         } catch (Exception e) {
             logger.error("Embedded datasource been cannot be created!", e);
             return null;
         }
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplate() {
+        JdbcTemplate jdbcTemplate = new JdbcTemplate();
+        jdbcTemplate.setDataSource(dataSource());
+        return jdbcTemplate;
     }
 }
