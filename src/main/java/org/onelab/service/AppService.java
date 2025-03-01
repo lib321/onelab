@@ -8,6 +8,7 @@ import org.onelab.repoimpl.OrderRepoImpl;
 import org.onelab.repoimpl.ProductRepoImpl;
 import org.onelab.repoimpl.UserRepoImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;

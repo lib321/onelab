@@ -56,7 +56,7 @@ public class OrderRepoImpl implements OrderRepo {
     @Override
     public void save(Orders order) {
         String sql = "insert into orders (user_id) values(?)";
-        jdbcTemplate.update(sql, order);
+        jdbcTemplate.update(sql, order.getUserId());
     }
 
     @Override
