@@ -1,18 +1,25 @@
 package org.onelab.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Builder
+@Entity
+@Table(name = "orders")
 @Getter
 @Setter
-@ToString
-public class Orders implements Serializable{
-    private static final long serialVersionUID = 1L;
+public class Orders {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
-    private List<OrderProducts> orderProducts;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
+
+    @OneToMany(mappedBy = "orders")
+    private List<OrderProducts> products;
 }
