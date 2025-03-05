@@ -1,5 +1,6 @@
 package org.onelab;
 
+import org.onelab.dto.OrderTotalDTO;
 import org.onelab.model.OrderProducts;
 import org.onelab.model.Orders;
 import org.onelab.model.Users;
@@ -17,12 +18,10 @@ public class App {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(App.class, args);
 
-        UserServiceImpl userService = applicationContext.getBean(UserServiceImpl.class);
         OrderServiceImpl orderService = applicationContext.getBean(OrderServiceImpl.class);
 
-        List<Orders> orders = orderService.findOrdersByUserId(1);
-        for (Orders order : orders) {
-            System.out.println(order.getId());
+        for (OrderTotalDTO orderTotalDTO : orderService.getTotalProductsPerOrderByUserId(1)) {
+            System.out.println("order id: " + orderTotalDTO.getOrderId() + " count: " + orderTotalDTO.getTotalCount());
         }
     }
 }
