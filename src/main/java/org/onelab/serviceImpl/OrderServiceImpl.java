@@ -54,6 +54,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<OrderTotalDTO> getTotalProductsPerOrderByUserId(int userId) {
         return orderProductRepo.getTotalProductsPerOrderByUserId(userId);
     }

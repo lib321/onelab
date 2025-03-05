@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.util.List;
+import java.util.Optional;
 
 @SpringBootApplication
 public class App {
@@ -18,10 +19,18 @@ public class App {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(App.class, args);
 
-        OrderServiceImpl orderService = applicationContext.getBean(OrderServiceImpl.class);
+        UserServiceImpl userService = applicationContext.getBean(UserServiceImpl.class);
 
-        for (OrderTotalDTO orderTotalDTO : orderService.getTotalProductsPerOrderByUserId(1)) {
-            System.out.println("order id: " + orderTotalDTO.getOrderId() + " count: " + orderTotalDTO.getTotalCount());
-        }
+        Users newUser = Users.builder()
+                .login("login4")
+                .password("pass4")
+                .firstname("name4")
+                .lastname("surname4")
+                .build();
+        userService.save(newUser);
+
+
+        userService.save(null);
+
     }
 }

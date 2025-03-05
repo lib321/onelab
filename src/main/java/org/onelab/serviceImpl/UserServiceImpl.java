@@ -34,6 +34,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users save(Users user) {
+        if (user == null) {
+            throw new IllegalArgumentException("Нельзя сохранять null!");
+        }
         return userRepo.save(user);
     }
 
