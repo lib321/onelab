@@ -19,10 +19,12 @@ VALUES ('prod2', 2000);
 INSERT INTO product (name, price)
 VALUES ('prod3', 3000);
 
-INSERT INTO order_products (order_id, product_id)
-VALUES (1, 1);
-INSERT INTO order_products (order_id, product_id)
-VALUES (1, 2);
-INSERT INTO order_products (order_id, product_id)
-VALUES (2, 3);
+INSERT INTO order_products (order_id, product_id, count)
+VALUES (1, 1, 1);
+INSERT INTO order_products (order_id, product_id, count)
+VALUES (1, 2, 2);
+INSERT INTO order_products (order_id, product_id, count)
+VALUES (2, 3, 2);
+INSERT INTO order_products (order_id, product_id, count)
+VALUES (3, 3, 2);
 

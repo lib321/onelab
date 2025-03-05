@@ -1,6 +1,7 @@
 package org.onelab.repository;
 
 import org.onelab.model.Users;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepo extends CustomCrudRepo<Users> {
+public interface UserRepo extends JpaRepository<Users, Integer> {
 }

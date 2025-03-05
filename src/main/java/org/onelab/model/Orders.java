@@ -3,13 +3,15 @@ package org.onelab.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "orders")
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orders {
 
     @Id
@@ -20,6 +22,6 @@ public class Orders {
     @JoinColumn(name = "user_id")
     private Users user;
 
-    @OneToMany(mappedBy = "orders")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderProducts> products;
 }
