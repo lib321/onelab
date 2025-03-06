@@ -1,15 +1,15 @@
 package org.onelab;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.onelab.model.OrderProducts;
 import org.onelab.model.Orders;
 import org.onelab.model.Product;
 import org.onelab.model.Users;
-import org.onelab.repository.OrderRepo;
-import org.onelab.repository.ProductRepo;
 import org.onelab.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
 import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.assertThat;
 

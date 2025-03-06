@@ -20,6 +20,7 @@ public class App {
         ApplicationContext applicationContext = SpringApplication.run(App.class, args);
 
         UserServiceImpl userService = applicationContext.getBean(UserServiceImpl.class);
+        OrderServiceImpl orderService = applicationContext.getBean(OrderServiceImpl.class);
 
         Users newUser = Users.builder()
                 .login("login4")
@@ -29,8 +30,11 @@ public class App {
                 .build();
         userService.save(newUser);
 
-
         userService.save(null);
 
+        List<OrderTotalDTO> orderTotalDTOList = orderService.getTotalProductsPerOrderByUserId(1);
+        for (OrderTotalDTO totalDTO : orderTotalDTOList) {
+            System.out.println("order id: " + totalDTO.getOrderId() + " total: " + totalDTO.getTotalCount());
+        }
     }
 }
