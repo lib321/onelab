@@ -1,7 +1,5 @@
 package org.onelab.serviceImpl;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.onelab.dto.OrderTotalDTO;
 import org.onelab.model.Orders;
 import org.onelab.repository.OrderProductRepo;
