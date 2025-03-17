@@ -1,0 +1,49 @@
+package com.onelab.microservices;
+
+import com.onelab.microservices.model.Product;
+import com.onelab.microservices.repository.ProductRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.transaction.annotation.Transactional;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+
+@Testcontainers
+@DataJpaTest
+public class ProductRepositoryTest {
+
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16.0");
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Test
+    void connectionEstablished() {
+        assertThat(postgres.isCreated()).isTrue();
+        assertThat(postgres.isRunning()).isTrue();
+    }
+
+    @BeforeEach
+    void setUp() {
+        Product product = new Product(null, "ProductA", "Description", 10.0, 10);
+        productRepository.save(product);
+    }
+
+    @Test
+    @Transactional
+    void shouldReturnProductByName() {
+        Optional<Product> product = productRepository.findByName("ProductA");
+        assertThat(product).isPresent();
+    }
+}
