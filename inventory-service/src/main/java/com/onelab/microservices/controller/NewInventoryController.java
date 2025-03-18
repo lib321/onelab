@@ -59,8 +59,8 @@ public class NewInventoryController {
 
     @GetMapping("/compare")
     public ResponseEntity<String> compareStreamPerformance() {
-        inventoryService.compareStreamPerformance();
-        return ResponseEntity.ok("Сравнение производительности sequential and parallel streams");
+        String result = inventoryService.compareStreamPerformance();
+        return ResponseEntity.ok(result);
     }
 
     @GetMapping("/total-price")

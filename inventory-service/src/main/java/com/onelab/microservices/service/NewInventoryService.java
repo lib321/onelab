@@ -85,7 +85,7 @@ public class NewInventoryService {
                 .collect(Collectors.toList());
     }
 
-    public void compareStreamPerformance() {
+    public String compareStreamPerformance() {
         List<NewInventoryItem> items = StreamSupport.stream(inventoryRepository.findAll().spliterator(), false)
                 .toList();
 
@@ -101,8 +101,7 @@ public class NewInventoryService {
                 .count();
         long parallelTime = System.nanoTime() - startTime;
 
-        System.out.println("Sequential time: " + sequentialTime);
-        System.out.println("Parallel time: " + parallelTime);
+        return "Sequential time: " + sequentialTime + " ns\nParallel time: " + parallelTime + " ns";
     }
 
     public int getTotalInventoryValue() {
