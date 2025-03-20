@@ -3,6 +3,7 @@ package com.onelab.microservices.controller;
 import com.onelab.microservices.dto.InventoryItemDTO;
 import com.onelab.microservices.dto.InventoryRequestDTO;
 import com.onelab.microservices.dto.InventoryResponseDTO;
+import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -64,5 +65,48 @@ public class InventoryController {
     public ResponseEntity<Map<Long, Boolean>> checkStockAvailability(@RequestBody List<InventoryItemDTO> items) {
         Map<Long, Boolean> stockStatus = inventoryService.checkStock(items);
         return ResponseEntity.ok(stockStatus);
+    }
+
+    @GetMapping("/products/{category}")
+    public ResponseEntity<List<String>> getProductsByCategory(@PathVariable String category) {
+        List<String> productNames = inventoryService.getProductNamesByCategory(category);
+        return ResponseEntity.ok(productNames);
+    }
+
+    @GetMapping("/products/by-price")
+    public ResponseEntity<List<String>> getProductsByPrice(
+            @RequestParam int minPrice,
+            @RequestParam int maxPrice) {
+        List<String> productNames = inventoryService.getProductNamesByPriceRange(minPrice, maxPrice);
+        return ResponseEntity.ok(productNames);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<InventoryItem>> filterItemsByPrice(
+            @RequestParam int minPrice) {
+        List<InventoryItem> filteredItems = inventoryService.filterWithLambda(
+                item -> item.getPrice() >= minPrice);
+        return ResponseEntity.ok(filteredItems);
+    }
+
+    @GetMapping("/compare")
+    public ResponseEntity<String> compareStreamPerformance() {
+        String result = inventoryService.compareStreamPerformance();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/total-price")
+    public ResponseEntity<Integer> getTotalInventoryPrice() {
+        return ResponseEntity.ok(inventoryService.getTotalInventoryValue());
+    }
+
+    @GetMapping("/group-by-category")
+    public ResponseEntity<Map<String, List<InventoryItem>>> groupByCategory() {
+        return ResponseEntity.ok(inventoryService.groupByCategory());
+    }
+
+    @GetMapping("/partition-by-price")
+    public ResponseEntity<Map<Boolean, List<InventoryItem>>> partitionByPrice(@RequestParam int price) {
+        return ResponseEntity.ok(inventoryService.partitionByPrice(price));
     }
 }

@@ -1,12 +1,14 @@
 package com.onelab.microservices.controller;
 
 import com.onelab.microservices.dto.ProductDTO;
+import com.onelab.microservices.model.Category;
 import com.onelab.microservices.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -33,8 +35,8 @@ public class ProductController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO
-            , @RequestHeader(value = "Authorization", required = false) String authHeader) {
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO,
+                                                    @RequestHeader(value = "Authorization", required = false) String authHeader) {
         return ResponseEntity.ok(productService.updateProduct(id, productDTO, authHeader));
     }
 
@@ -43,5 +45,13 @@ public class ProductController {
                                               @RequestHeader(value = "Authorization", required = false) String authHeader) {
         productService.deleteProduct(id, authHeader);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/add/category")
+    public ResponseEntity<Category> addCategory(@RequestBody Category category,
+                                                @RequestHeader(value = "Authorization", required = false) String authHeader) {
+        return productService.createCategory(Optional.ofNullable(category), authHeader)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 }

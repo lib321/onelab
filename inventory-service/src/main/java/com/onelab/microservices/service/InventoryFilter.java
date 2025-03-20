@@ -1,9 +1,9 @@
 package com.onelab.microservices.service;
 
-import com.onelab.microservices.model.NewInventoryItem;
+import com.onelab.microservices.model.InventoryItem;
 
 @FunctionalInterface
 public interface InventoryFilter {
-    boolean filter(NewInventoryItem item);
+    boolean filter(InventoryItem item);
 }
 

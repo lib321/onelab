@@ -10,8 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 
 @Service
@@ -20,15 +24,32 @@ public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final KafkaProducerService kafkaProducerService;
+    private final Random random = new Random();
 
     public InventoryItemDTO add(InventoryItemDTO itemDTO) {
-        InventoryItem item = new InventoryItem(null, itemDTO.getProductId(), itemDTO.getProductName(), itemDTO.getQuantity());
+        InventoryItem item = new InventoryItem(
+                null, itemDTO.getProductId(),
+                itemDTO.getProductName(),
+                itemDTO.getPrice(),
+                itemDTO.getQuantity(),
+                itemDTO.getCategoryName(),
+                itemDTO.getAddedAt(),
+                itemDTO.getUpdatedAt()
+        );
         if (inventoryRepository.existsByProductId(itemDTO.getProductId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Продукт с таким id уже существует");
         }
 
         inventoryRepository.save(item);
-        return new InventoryItemDTO(item.getProductId(), item.getProductName(), item.getQuantity());
+        return new InventoryItemDTO(
+                item.getProductId(),
+                item.getProductName(),
+                item.getPrice(),
+                item.getQuantity(),
+                item.getCategoryName(),
+                item.getAddedAt(),
+                item.getUpdatedAt()
+        );
     }
 
     @Transactional
@@ -41,8 +62,11 @@ public class InventoryService {
             return new InventoryResponseDTO(null, request.getProductName(), request.getQuantity(), request.getCustomerName(), false);
         }
         item.setQuantity(item.getQuantity() - request.getQuantity());
-        inventoryRepository.save(item);
+        item.setUpdatedAt(LocalDate.now());
+        InventoryItem updatedItem = inventoryRepository.save(item);
         kafkaProducerService.sendMessage("order-events", "CONFIRMED", request);
+        kafkaProducerService.sendMessage("product-quantity-update", "UPDATE", new UpdateQuantityDTO(
+                updatedItem.getProductId(), updatedItem.getQuantity()));
         return new InventoryResponseDTO(item.getProductId(), item.getProductName(), request.getQuantity(), request.getCustomerName(), true);
     }
 
@@ -69,8 +93,17 @@ public class InventoryService {
 
         item.setQuantity(inventoryItemDTO.getQuantity());
         item.setProductName(inventoryItemDTO.getProductName());
+        item.setUpdatedAt(LocalDate.now());
         inventoryRepository.save(item);
-        return new InventoryItemDTO(item.getProductId(), item.getProductName(), item.getQuantity());
+        return new InventoryItemDTO(
+                item.getProductId(),
+                item.getProductName(),
+                item.getPrice(),
+                item.getQuantity(),
+                item.getCategoryName(),
+                item.getAddedAt(),
+                item.getUpdatedAt()
+        );
     }
 
     public boolean isStockLow(Long productId) {
@@ -82,7 +115,14 @@ public class InventoryService {
     public List<InventoryItemDTO> getAllItems() {
         List<InventoryItemDTO> items = new ArrayList<>();
         inventoryRepository.findAll().forEach(item ->
-                items.add(new InventoryItemDTO(item.getProductId(), item.getProductName(), item.getQuantity()))
+                items.add(new InventoryItemDTO(
+                        item.getProductId(),
+                        item.getProductName(),
+                        item.getPrice(),
+                        item.getQuantity(),
+                        item.getCategoryName(),
+                        item.getAddedAt(),
+                        item.getUpdatedAt()))
         );
         return items;
     }
@@ -115,9 +155,90 @@ public class InventoryService {
 
             int quantityChange = updateDTO.getNewQuantity() - updateDTO.getOldQuantity();
             inventoryItem.setQuantity(inventoryItem.getQuantity() - quantityChange);
-
-            inventoryRepository.save(inventoryItem);
+            inventoryItem.setUpdatedAt(LocalDate.now());
+            InventoryItem updatedItem = inventoryRepository.save(inventoryItem);
+            kafkaProducerService.sendMessage("product-quantity-update", "UPDATE", new UpdateQuantityDTO(
+                    updatedItem.getProductId(), updatedItem.getQuantity()));
         }
+    }
+
+    public List<String> getProductNamesByCategory(String categoryName) {
+        return inventoryRepository.findByCategoryName(categoryName).stream()
+                .map(InventoryItem::getProductName)
+                .collect(Collectors.toList());
+    }
+
+    public List<String> getProductNamesByPriceRange(int minPrice, int maxPrice) {
+        List<InventoryItem> items = inventoryRepository.findByPriceBetween(minPrice, maxPrice);
+
+        Predicate<InventoryItem> priceFilter = item -> item.getPrice() >= minPrice && item.getPrice() <= maxPrice;
+        Function<InventoryItem, String> nameMapper = item -> item.getProductName() + " - " + item.getPrice();
+
+        return items.stream()
+                .filter(priceFilter)
+                .sorted(Comparator.comparingInt(InventoryItem::getPrice))
+                .map(nameMapper)
+                .collect(Collectors.toList());
+    }
+
+    public List<InventoryItem> filterWithLambda(InventoryFilter filter) {
+        List<InventoryItem> items = StreamSupport
+                .stream(inventoryRepository.findAll().spliterator(), false)
+                .toList();
+
+        return items.stream()
+                .filter(filter::filter)
+                .sorted(Comparator.comparing(InventoryItem::getPrice))
+                .collect(Collectors.toList());
+    }
+
+    public String compareStreamPerformance() {
+        List<InventoryItem> items = StreamSupport.stream(inventoryRepository.findAll().spliterator(), false)
+                .toList();
+
+        long startTime = System.nanoTime();
+        items.stream()
+                .map(item -> item.getProductName() + " price is " + calculatePrice(item))
+                .count();
+        long sequentialTime = System.nanoTime() - startTime;
+
+        startTime = System.nanoTime();
+        items.parallelStream()
+                .map(item -> item.getProductName() + " price is " + calculatePrice(item))
+                .count();
+        long parallelTime = System.nanoTime() - startTime;
+
+        return "Sequential time: " + sequentialTime + " ns\nParallel time: " + parallelTime + " ns";
+    }
+
+    public int getTotalInventoryValue() {
+        List<InventoryItem> items = StreamSupport.stream(inventoryRepository.findAll().spliterator(), false)
+                .toList();
+
+        return items.stream()
+                .map(InventoryItem::getPrice)
+                .reduce(0, Integer::sum);
+    }
+
+    public Map<String, List<InventoryItem>> groupByCategory() {
+        List<InventoryItem> items = StreamSupport.stream(inventoryRepository.findAll().spliterator(), false)
+                .toList();
+
+        return items.stream()
+                .collect(Collectors.groupingBy(InventoryItem::getCategoryName));
+    }
+
+    public Map<Boolean, List<InventoryItem>> partitionByPrice(int price) {
+        List<InventoryItem> items = StreamSupport.stream(inventoryRepository.findAll().spliterator(), false)
+                .toList();
+
+        return items.stream()
+                .collect(Collectors.partitioningBy(item -> item.getPrice() > price));
+    }
+
+
+    private int calculatePrice(InventoryItem item) {
+        return Math.abs(random.nextInt()) % Integer.MAX_VALUE + item.getPrice();
     }
 }
 

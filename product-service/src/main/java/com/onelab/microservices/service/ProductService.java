@@ -5,7 +5,9 @@ import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
 import com.onelab.microservices.feign.UserFeignInterface;
+import com.onelab.microservices.model.Category;
 import com.onelab.microservices.model.Product;
+import com.onelab.microservices.repository.CategoryRepository;
 import com.onelab.microservices.repository.ProductRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,13 +28,27 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryRepository categoryRepository;
     private final ProductFeignInterface productFeignInterface;
     private final UserFeignInterface userFeignInterface;
     private final KafkaProducerService kafkaProducerService;
 
+    public Optional<Category> createCategory(Optional<Category> category, String authHeader) {
+        checkAdminAccess(authHeader);
+
+        return category.map(c -> {
+            Category savedCategory = Category.builder()
+                    .categoryName(c.getCategoryName())
+                    .build();
+
+            return categoryRepository.save(savedCategory);
+        });
+    }
+
     @Transactional
     public ProductDTO createProduct(ProductDTO productDTO, String authHeader) {
         checkAdminAccess(authHeader);
+        Optional<Category> category = categoryRepository.findById(productDTO.getCategoryId());
 
         try {
             validateProduct(productDTO);
@@ -39,31 +56,37 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
 
-        Optional<Product> existingProduct = productRepository.findByName(productDTO.getProductName());
+        Optional<Product> existingProduct = productRepository.findByProductName(productDTO.getProductName());
         if (existingProduct.isPresent()) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Продукт с таким именем уже существует");
         }
 
         Product product = new Product();
-        product.setName(productDTO.getProductName());
-        product.setDescription(productDTO.getDescription());
+        product.setProductName(productDTO.getProductName());
         product.setPrice(productDTO.getPrice());
         product.setQuantity(productDTO.getQuantity());
+        product.setCategory(category.orElseThrow(
+                () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Категория не найдена")));
 
         Product savedProduct = productRepository.save(product);
 
         ProductDTO responseDTO = new ProductDTO(
                 savedProduct.getId(),
-                savedProduct.getName(),
-                savedProduct.getDescription(),
+                savedProduct.getProductName(),
                 savedProduct.getPrice(),
-                savedProduct.getQuantity()
+                savedProduct.getQuantity(),
+                savedProduct.getCategory().getId(),
+                savedProduct.getLocalDate()
         );
 
         InventoryItemDTO inventoryItemDTO = new InventoryItemDTO(
                 savedProduct.getId(),
-                savedProduct.getName(),
-                savedProduct.getQuantity()
+                savedProduct.getProductName(),
+                savedProduct.getPrice(),
+                savedProduct.getQuantity(),
+                savedProduct.getCategory().getCategoryName(),
+                savedProduct.getLocalDate(),
+                savedProduct.getUpdatedDate()
         );
 
         try {
@@ -86,7 +109,14 @@ public class ProductService {
             product.setQuantity(stock);
             productRepository.save(product);
         }
-        return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), stock);
+        return new ProductDTO(
+                product.getId(),
+                product.getProductName(),
+                product.getPrice(),
+                stock,
+                product.getCategory().getId(),
+                product.getUpdatedDate()
+        );
     }
 
     @Transactional(readOnly = true)
@@ -96,7 +126,14 @@ public class ProductService {
         return productRepository.findAll().stream()
                 .map(product -> {
                     int stock = stockMap.getOrDefault(product.getId(), 0);
-                    return new ProductDTO(product.getId(), product.getName(), product.getDescription(), product.getPrice(), stock);
+                    return new ProductDTO(
+                            product.getId(),
+                            product.getProductName(),
+                            product.getPrice(),
+                            stock,
+                            product.getCategory().getId(),
+                            product.getUpdatedDate()
+                    );
                 })
                 .collect(Collectors.toList());
     }
@@ -117,8 +154,7 @@ public class ProductService {
 
         int oldQuantity = product.getQuantity();
 
-        product.setName(productDTO.getProductName());
-        product.setDescription(productDTO.getDescription());
+        product.setProductName(productDTO.getProductName());
         product.setPrice(productDTO.getPrice());
         product.setQuantity(productDTO.getQuantity());
 
@@ -126,8 +162,12 @@ public class ProductService {
 
         InventoryItemDTO inventoryItemDTO = new InventoryItemDTO(
                 updatedProduct.getId(),
-                updatedProduct.getName(),
-                updatedProduct.getQuantity()
+                updatedProduct.getProductName(),
+                updatedProduct.getPrice(),
+                updatedProduct.getQuantity(),
+                updatedProduct.getCategory().getCategoryName(),
+                updatedProduct.getLocalDate(),
+                updatedProduct.getUpdatedDate()
         );
 
         try {
@@ -142,10 +182,12 @@ public class ProductService {
 
         return new ProductDTO(
                 updatedProduct.getId(),
-                updatedProduct.getName(),
-                updatedProduct.getDescription(),
+                updatedProduct.getProductName(),
                 updatedProduct.getPrice(),
-                updatedProduct.getQuantity());
+                updatedProduct.getQuantity(),
+                updatedProduct.getCategory().getId(),
+                updatedProduct.getUpdatedDate()
+        );
     }
 
     @Transactional

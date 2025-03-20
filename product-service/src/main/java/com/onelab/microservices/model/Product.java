@@ -2,12 +2,15 @@ package com.onelab.microservices.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-@ToString
+import java.time.LocalDate;
+
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 @Table
 @Entity(name = "products")
 public class Product {
@@ -16,8 +19,18 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String description;
-    private Double price;
+    private String productName;
+    private int price;
     private int quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @CreationTimestamp
+    private LocalDate localDate;
+
+    @UpdateTimestamp
+    private LocalDate updatedDate;
+
 }

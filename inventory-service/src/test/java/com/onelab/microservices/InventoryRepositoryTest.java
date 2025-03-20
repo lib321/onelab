@@ -14,10 +14,12 @@ import org.testcontainers.elasticsearch.ElasticsearchContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 @ExtendWith(SpringExtension.class)
@@ -38,8 +40,21 @@ public class InventoryRepositoryTest {
     @BeforeEach
     void testIsContainerRunning() {
         assertTrue(elasticsearchContainer.isRunning());
-        InventoryItem item = new InventoryItem(null, 1L, "ProductA", 10);
+        InventoryItem item = new InventoryItem(
+                null, 1L, "ProductA", 500, 10, "CategoryA",
+                LocalDate.of(2024, 12, 25),
+                LocalDate.of(2024, 12, 25));
+        InventoryItem item1 = new InventoryItem(
+                null, 2L, "ProductB", 850, 5, "CategoryA",
+                LocalDate.of(2024, 12, 25),
+                LocalDate.of(2024, 12, 25));
+        InventoryItem item2 = new InventoryItem(
+                null, 3L, "ProductC", 700, 5, "CategoryB",
+                LocalDate.of(2024, 12, 25),
+                LocalDate.of(2024, 12, 25));
         inventoryRepository.save(item);
+        inventoryRepository.save(item1);
+        inventoryRepository.save(item2);
     }
 
     @Test
@@ -70,6 +85,26 @@ public class InventoryRepositoryTest {
     void shouldDeleteByProductId() {
         inventoryRepository.deleteByProductId(1L);
         assertThat(inventoryRepository.findByProductId(1L)).isEmpty();
+    }
+
+    @Test
+    void shouldReturnListOfItemsByCategoryName() {
+        List<InventoryItem> result = inventoryRepository.findByCategoryName("CategoryA");
+        assertNotNull(result);
+        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.get(0).getProductName()).isEqualTo("ProductA");
+        assertThat(result.get(1).getProductName()).isEqualTo("ProductB");
+    }
+
+    @Test
+    void shouldReturnItemsByPriceBetween() {
+        List<InventoryItem> result = inventoryRepository.findByPriceBetween(400, 720);
+        assertNotNull(result);
+        assertThat(result.size()).isEqualTo(2);
+        assertThat(result.get(0).getProductName()).isEqualTo("ProductA");
+        assertThat(result.get(1).getProductName()).isEqualTo("ProductC");
+        assertThat(result.get(0).getPrice()).isEqualTo(500);
+        assertThat(result.get(1).getPrice()).isEqualTo(700);
     }
 
     @AfterAll

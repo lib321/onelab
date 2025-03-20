@@ -5,7 +5,9 @@ import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
 import com.onelab.microservices.feign.UserFeignInterface;
+import com.onelab.microservices.model.Category;
 import com.onelab.microservices.model.Product;
+import com.onelab.microservices.repository.CategoryRepository;
 import com.onelab.microservices.repository.ProductRepository;
 import com.onelab.microservices.service.ProductService;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,6 +22,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -35,23 +39,31 @@ public class ProductServiceTest {
     @Mock private ProductFeignInterface productFeignInterface;
     @Mock private UserFeignInterface userFeignInterface;
     @Mock private KafkaProducerService kafkaProducerService;
+    @Mock private CategoryRepository categoryRepository;
 
     @InjectMocks private ProductService productService;
 
     private ProductDTO validProductDTO;
     private Product existingProduct;
+    private Category category;
     private final String AUTH_HEADER = "Bearer token";
 
     @BeforeEach
     void setUp() {
-        validProductDTO = new ProductDTO(1L, "ProductA", "Description", 100.0, 10);
-        existingProduct = new Product(1L, "ProductA", "Description", 100.0, 10);
+        category = new Category(1L, "Category1", new ArrayList<>());
+        validProductDTO = new ProductDTO(
+                1L, "ProductA", 1000, 10, 1L,
+                LocalDate.of(2024, 9, 10));
+        existingProduct = new Product(1L, "ProductA", 1000, 10, category,
+                LocalDate.of(2024, 9, 10), null);
+        category.getProducts().add(existingProduct);
     }
 
     @Test
     void createProduct_whenValid_shouldSaveAndSendKafka() {
         when(userFeignInterface.validateUserRole(AUTH_HEADER, "ADMIN")).thenReturn(true);
-        when(productRepository.findByName(validProductDTO.getProductName())).thenReturn(Optional.empty());
+        when(productRepository.findByProductName(validProductDTO.getProductName())).thenReturn(Optional.empty());
+        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
         when(productRepository.save(any())).thenReturn(existingProduct);
         when(productFeignInterface.addProduct(any())).thenReturn(ResponseEntity.ok().build());
 
@@ -59,14 +71,26 @@ public class ProductServiceTest {
 
         assertNotNull(result);
         assertEquals(validProductDTO.getProductName(), result.getProductName());
+        assertEquals(1L, result.getCategoryId());
         verify(productRepository).save(any());
         verify(kafkaProducerService).sendMessage(eq("product-events"), eq("CREATED"), any(InventoryItemDTO.class));
     }
 
     @Test
+    void createCategory_shouldSaveCategory() {
+        when(userFeignInterface.validateUserRole(AUTH_HEADER, "ADMIN")).thenReturn(true);
+        when(categoryRepository.save(any())).thenReturn(category);
+
+        Optional<Category> result = productService.createCategory(Optional.of(category), AUTH_HEADER);
+
+        assertEquals("Category1", result.get().getCategoryName());
+        verify(categoryRepository).save(any());
+    }
+
+    @Test
     void createProduct_whenAlreadyExists_shouldThrowConflict() {
         when(userFeignInterface.validateUserRole(AUTH_HEADER, "ADMIN")).thenReturn(true);
-        when(productRepository.findByName(validProductDTO.getProductName())).thenReturn(Optional.of(existingProduct));
+        when(productRepository.findByProductName(validProductDTO.getProductName())).thenReturn(Optional.of(existingProduct));
 
         assertThrows(ResponseStatusException.class, () -> productService.createProduct(validProductDTO, AUTH_HEADER));
         verify(productRepository, never()).save(any());
@@ -91,11 +115,13 @@ public class ProductServiceTest {
         when(productRepository.save(any())).thenReturn(existingProduct);
         when(productFeignInterface.restockProduct(any())).thenReturn(ResponseEntity.ok().build());
 
-        ProductDTO updated = new ProductDTO(1L, "UpdatedName", "UpdatedDescription", 200.0, 15);
+        ProductDTO updated = new ProductDTO(1L, "UpdatedName", 2000, 15, 1L,
+                LocalDate.of(2025, 10, 12));
         ProductDTO result = productService.updateProduct(1L, updated, AUTH_HEADER);
 
         assertNotNull(result);
         assertEquals("UpdatedName", result.getProductName());
+        assertNotEquals(validProductDTO.getLocalDate(), result.getLocalDate());
         verify(kafkaProducerService).sendMessage(eq("product-events-update"), eq("UPDATE"), any(InventoryItemDTO.class));
     }
 
@@ -136,7 +162,9 @@ public class ProductServiceTest {
     @Test
     void createProduct_whenNameIsNull_shouldThrowException() {
         mockAdminAccess(true);
-        ProductDTO invalidDTO = new ProductDTO(null, null, "Desc", 10.0, 5);
+        ProductDTO invalidDTO = new ProductDTO(
+                1L, null, 2000, 15, 1L,
+                LocalDate.of(2025, 10, 12));
 
         assertThrowsResponseStatus(HttpStatus.BAD_REQUEST, "Имя продукта не может быть пустым",
                 () -> productService.createProduct(invalidDTO, AUTH_HEADER));
@@ -145,7 +173,8 @@ public class ProductServiceTest {
     @Test
     void validateProduct_whenPriceIsZero_shouldThrowException() {
         mockAdminAccess(true);
-        ProductDTO invalidDTO = new ProductDTO(null, "Product", "Desc", 0.0, 5);
+        ProductDTO invalidDTO = new ProductDTO(1L, "UpdatedName", 0, 15, 1L,
+                LocalDate.of(2025, 10, 12));
 
         assertThrowsResponseStatus(HttpStatus.BAD_REQUEST, "Цена должна быть больше 0",
                 () -> productService.createProduct(invalidDTO, AUTH_HEADER));
@@ -154,7 +183,8 @@ public class ProductServiceTest {
     @Test
     void validateProduct_whenQuantityIsNegative_shouldThrowException() {
         mockAdminAccess(true);
-        ProductDTO invalidDTO = new ProductDTO(null, "Product", "Desc", 10.0, -1);
+        ProductDTO invalidDTO = new ProductDTO(1L, "UpdatedName", 1000, -1, 1L,
+                LocalDate.of(2025, 10, 12));
 
         assertThrowsResponseStatus(HttpStatus.BAD_REQUEST, "Количество не может быть отрицательным",
                 () -> productService.createProduct(invalidDTO, AUTH_HEADER));
@@ -162,8 +192,6 @@ public class ProductServiceTest {
 
     @Test
     void createProduct_whenNoAuthHeader_shouldThrowUnauthorized() {
-        ProductDTO validProductDTO = new ProductDTO(null, "Product", "Desc", 10.0, 5);
-
         assertThrowsResponseStatus(HttpStatus.UNAUTHORIZED, "Неавторизованный пользователь",
                 () -> productService.createProduct(validProductDTO, null));
     }
@@ -171,8 +199,6 @@ public class ProductServiceTest {
     @Test
     void checkAdminAccess_whenUserNotAdmin_shouldThrowForbidden() {
         mockAdminAccess(false);
-        ProductDTO validProductDTO = new ProductDTO(null, "Product", "Desc", 10.0, 5);
-
         assertThrowsResponseStatus(HttpStatus.FORBIDDEN, "Доступ запрещен",
                 () -> productService.createProduct(validProductDTO, AUTH_HEADER));
     }
@@ -180,7 +206,9 @@ public class ProductServiceTest {
     @Test
     void updateProduct_whenNameIsNull_shouldThrowException() {
         mockAdminAccess(true);
-        ProductDTO invalidDTO = new ProductDTO(1L, null, "Desc", 10.0, 5);
+        ProductDTO invalidDTO = new ProductDTO(
+                1L, null, 2000, 15, 1L,
+                LocalDate.of(2025, 10, 12));
 
         assertThrowsResponseStatus(HttpStatus.BAD_REQUEST, "Имя продукта не может быть пустым",
                 () -> productService.updateProduct(1L, invalidDTO, AUTH_HEADER));
