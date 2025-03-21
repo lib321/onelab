@@ -14,24 +14,4 @@ public interface InventoryRepository extends ElasticsearchRepository<InventoryIt
     Optional<InventoryItem> findByProductId(Long productId);
     boolean existsByProductId(Long productId);
     void deleteByProductId(Long productId);
-    @Query("{\"match\": {\"categoryName\": {\"query\": \"?0\"}}}")
-    List<InventoryItem> findByCategoryName(String categoryName);
-
-    @Query("""
-                {
-                  "bool": {
-                    "must": [
-                      {
-                        "range": {
-                          "price": {
-                            "gte": ?0,
-                            "lte": ?1
-                          }
-                        }
-                      }
-                    ]
-                  }
-                }
-            """)
-    List<InventoryItem> findByPriceBetween(int minPrice, int maxPrice);
 }

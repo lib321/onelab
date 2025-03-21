@@ -7,7 +7,6 @@ import com.onelab.microservices.dto.InventoryUpdateDTO;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.repository.InventoryRepository;
-import com.onelab.microservices.service.InventoryFilter;
 import com.onelab.microservices.service.InventoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,9 +33,6 @@ public class InventoryServiceTest {
 
     @Mock
     private KafkaProducerService kafkaProducerService;
-
-    @Mock
-    private InventoryFilter filter;
 
     @InjectMocks
     private InventoryService inventoryService;
@@ -239,98 +235,5 @@ public class InventoryServiceTest {
         inventoryService.updateInventory(updateItemStock);
 
         assertEquals(8, item.getQuantity());
-    }
-
-    @Test
-    void filterWithLambda_shouldReturnSortedItemsByPrice() {
-        when(inventoryRepository.findAll()).thenReturn(items);
-        when(filter.filter(any())).thenReturn(true);
-
-        List<InventoryItem> result = inventoryService.filterWithLambda(filter);
-
-        assertNotNull(result);
-        assertFalse(result.isEmpty());
-        assertEquals(80, result.get(0).getPrice());
-        assertEquals(90, result.get(1).getPrice());
-        assertEquals(100, result.get(2).getPrice());
-        assertEquals(130, result.get(3).getPrice());
-        assertEquals(150, result.get(4).getPrice());
-    }
-
-    @Test
-    void getProductNamesByPriceRange_shouldReturnProductNamesByPriceBetween() {
-        List<InventoryItem> rangePriceItems = List.of(
-                new InventoryItem(
-                        null, 5L, "P5", 90, 7, "C3", null, null
-                ),
-                new InventoryItem(
-                        null, 1L, "P1", 100, 3, "C1", null, null
-                ),
-                new InventoryItem(
-                        null, 4L, "P4", 130, 1, "C1", null, null
-                )
-        );
-        when(inventoryRepository.findByPriceBetween(90, 130)).thenReturn(rangePriceItems);
-        List<String> result = inventoryService.getProductNamesByPriceRange(90, 130);
-        assertNotNull(result);
-        assertEquals(result.get(0), "P5 - " + rangePriceItems.get(0).getPrice());
-        assertEquals(result.get(1), "P1 - " + rangePriceItems.get(1).getPrice());
-        assertEquals(result.get(2), "P4 - " + rangePriceItems.get(2).getPrice());
-    }
-
-    @Test
-    void getProductNamesByCategory_shouldReturnListOfProductNamesByCategory() {
-        List<InventoryItem> productNamesByCategory = List.of(
-                new InventoryItem(
-                        null, 2L, "P2", 2, 80, "C2", null, null
-                ),
-                new InventoryItem(
-                        null, 3L, "P3", 4, 150, "C2", null, null
-                )
-        );
-        when(inventoryRepository.findByCategoryName("C2")).thenReturn(productNamesByCategory);
-        List<String> result = inventoryService.getProductNamesByCategory("C2");
-        assertNotNull(result);
-        assertEquals("P2", productNamesByCategory.get(0).getProductName());
-        assertEquals("P3", productNamesByCategory.get(1).getProductName());
-        assertEquals("C2", productNamesByCategory.get(0).getCategoryName());
-        assertEquals("C2", productNamesByCategory.get(1).getCategoryName());
-    }
-
-    @Test
-    void getTotalValue_shouldReturnTotalPriceOfAllProducts() {
-        when(inventoryRepository.findAll()).thenReturn(items);
-        int total = inventoryService.getTotalInventoryValue();
-        assertEquals(total, 550);
-    }
-
-    @Test
-    void groupByCategory_shouldReturnItemsGroupedByCategory() {
-        when(inventoryRepository.findAll()).thenReturn(items);
-        Map<String, List<InventoryItem>> result = inventoryService.groupByCategory();
-
-        assertNotNull(result);
-        assertEquals(3, result.size());
-        assertTrue(result.containsKey("C1"));
-        assertTrue(result.containsKey("C2"));
-        assertTrue(result.containsKey("C3"));
-        assertEquals(2, result.get("C1").size());
-        assertEquals(2, result.get("C2").size());
-        assertEquals(1, result.get("C3").size());
-    }
-
-    @Test
-    void partitionByPrice_shouldReturnItemsGroupedByPrice() {
-        when(inventoryRepository.findAll()).thenReturn(items);
-        Map<Boolean, List<InventoryItem>> result = inventoryService.partitionByPrice(90);
-
-        assertNotNull(result);
-        assertEquals(2, result.size());
-
-        assertEquals(3, result.get(true).size());
-        assertEquals(2, result.get(false).size());
-
-        assertTrue(result.get(true).stream().allMatch(item -> item.getPrice() > 90));
-        assertTrue(result.get(false).stream().allMatch(item -> item.getPrice() <= 90));
     }
 }

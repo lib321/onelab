@@ -87,26 +87,6 @@ public class InventoryRepositoryTest {
         assertThat(inventoryRepository.findByProductId(1L)).isEmpty();
     }
 
-    @Test
-    void shouldReturnListOfItemsByCategoryName() {
-        List<InventoryItem> result = inventoryRepository.findByCategoryName("CategoryA");
-        assertNotNull(result);
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getProductName()).isEqualTo("ProductA");
-        assertThat(result.get(1).getProductName()).isEqualTo("ProductB");
-    }
-
-    @Test
-    void shouldReturnItemsByPriceBetween() {
-        List<InventoryItem> result = inventoryRepository.findByPriceBetween(400, 720);
-        assertNotNull(result);
-        assertThat(result.size()).isEqualTo(2);
-        assertThat(result.get(0).getProductName()).isEqualTo("ProductA");
-        assertThat(result.get(1).getProductName()).isEqualTo("ProductC");
-        assertThat(result.get(0).getPrice()).isEqualTo(500);
-        assertThat(result.get(1).getPrice()).isEqualTo(700);
-    }
-
     @AfterAll
     static void destroy() {
         elasticsearchContainer.stop();

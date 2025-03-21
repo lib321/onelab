@@ -1,6 +1,7 @@
 package com.onelab.microservices.service;
 
 import com.onelab.microservices.dto.InventoryItemDTO;
+import com.onelab.microservices.dto.ProductByCategoryDTO;
 import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -208,6 +210,27 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    public Map<String, List<ProductByCategoryDTO>> groupProductsByCategory() {
+        return productRepository.findAll().stream()
+                .map(product -> new ProductByCategoryDTO(
+                        product.getId(),
+                        product.getProductName(),
+                        product.getPrice(),
+                        product.getQuantity(),
+                        product.getCategory().getCategoryName()
+                ))
+                .collect(Collectors.groupingBy(
+                        ProductByCategoryDTO::getCategoryName,
+                        Collectors.collectingAndThen(
+                                Collectors.toList(),
+                                list -> list.stream()
+                                        .sorted(Comparator.comparingInt(ProductByCategoryDTO::getPrice).reversed())
+                                        .toList()
+                        )
+                ));
+    }
+
+
     private void validateProduct(ProductDTO productDTO) {
         if (productDTO.getProductName() == null || productDTO.getProductName().isBlank()) {
             throw new IllegalArgumentException("Имя продукта не может быть пустым");
@@ -234,5 +257,7 @@ public class ProductService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Неавторизованный пользователь");
         }
     }
+
+
 }
 

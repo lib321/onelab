@@ -1,5 +1,6 @@
 package com.onelab.microservices.controller;
 
+import com.onelab.microservices.dto.ProductByCategoryDTO;
 import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.model.Category;
 import com.onelab.microservices.service.ProductService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -54,4 +56,10 @@ public class ProductController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
+
+    @GetMapping("/grouped-by-category")
+    public ResponseEntity<Map<String, List<ProductByCategoryDTO>>> getProductsGroupedByCategory() {
+        return ResponseEntity.ok(productService.groupProductsByCategory());
+    }
+
 }

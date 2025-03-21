@@ -1,6 +1,7 @@
 package com.onelab.microservices;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.onelab.microservices.dto.ProductByCategoryDTO;
 import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
@@ -26,6 +27,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -159,4 +161,28 @@ public class ProductControllerTest {
                         .header("Authorization", "Bearer test-token"))
                 .andExpect(status().isNoContent());
     }
+
+    @Test
+    void getProductsGroupedByCategoryTest() throws Exception {
+        Map<String, List<ProductByCategoryDTO>> groupedProducts = Map.of(
+                "Electronics", List.of(
+                        new ProductByCategoryDTO(1L, "Laptop", 1000, 5, "Electronics"),
+                        new ProductByCategoryDTO(2L, "Smartphone", 800, 10, "Electronics")
+                ),
+                "Furniture", List.of(
+                        new ProductByCategoryDTO(3L, "Table", 200, 3, "Furniture")
+                )
+        );
+
+        Mockito.when(productService.groupProductsByCategory()).thenReturn(groupedProducts);
+
+        mockMvc.perform(get("/api/products/grouped-by-category"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.Electronics.size()").value(2))
+                .andExpect(jsonPath("$.Electronics[0].productName").value("Laptop"))
+                .andExpect(jsonPath("$.Electronics[1].productName").value("Smartphone"))
+                .andExpect(jsonPath("$.Furniture.size()").value(1))
+                .andExpect(jsonPath("$.Furniture[0].productName").value("Table"));
+    }
+
 }

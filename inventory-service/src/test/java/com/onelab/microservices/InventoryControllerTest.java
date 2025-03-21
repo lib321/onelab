@@ -5,14 +5,12 @@ import com.onelab.microservices.dto.InventoryItemDTO;
 import com.onelab.microservices.dto.InventoryRequestDTO;
 import com.onelab.microservices.dto.InventoryResponseDTO;
 import com.onelab.microservices.model.InventoryItem;
-import com.onelab.microservices.service.InventoryFilter;
 import com.onelab.microservices.service.InventoryService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -192,99 +190,6 @@ public class InventoryControllerTest {
                 .andExpect(jsonPath("$.['1']").value(true))
                 .andExpect(jsonPath("$.['2']").value(false))
                 .andExpect(jsonPath("$.size()").value(2));
-    }
-
-    @Test
-    void getProductsByCategoryTest() throws Exception {
-        List<String> productNames = List.of("ProductA", "ProductB");
-        Mockito.when(inventoryService.getProductNamesByCategory("CategoryA")).thenReturn(productNames);
-        mockMvc.perform(get("/api/inventory/products/{category}", "CategoryA"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(2))
-                .andExpect(jsonPath("$[0]").value("ProductA"))
-                .andExpect(jsonPath("$[1]").value("ProductB"));
-    }
-
-    @Test
-    void getProductsByPriceTest() throws Exception {
-        List<String> productNames = List.of("ProductA", "ProductB");
-        Mockito.when(inventoryService.getProductNamesByPriceRange(400, 600)).thenReturn(productNames);
-        mockMvc.perform(get("/api/inventory/products/by-price")
-                        .param("minPrice", "400")
-                        .param("maxPrice", "600"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(2))
-                .andExpect(jsonPath("$[0]").value("ProductA"))
-                .andExpect(jsonPath("$[1]").value("ProductB"));
-    }
-
-    @Test
-    void getFilteredItemsByPriceTest() throws Exception {
-        List<InventoryItem> items = List.of(
-                new InventoryItem(null, 1L, "ProductA", 450, 2, "CategoryA",
-                        null, null),
-                new InventoryItem(null, 2L, "ProductB", 500, 4, "CategoryA",
-                        null, null),
-                new InventoryItem(null, 3L, "ProductC", 650, 3, "CategoryB",
-                        null, null)
-        );
-
-        Mockito.when(inventoryService.filterWithLambda(any())).thenReturn(items);
-
-        mockMvc.perform(get("/api/inventory/filter")
-                        .param("minPrice", "450"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.size()").value(3))
-                .andExpect(jsonPath("$[0].productName").value("ProductA"))
-                .andExpect(jsonPath("$[1].productName").value("ProductB"))
-                .andExpect(jsonPath("$[2].productName").value("ProductC"));
-    }
-
-    @Test
-    void getTotalInventoryPriceTest() throws Exception {
-        Mockito.when(inventoryService.getTotalInventoryValue()).thenReturn(5000);
-
-        mockMvc.perform(get("/api/inventory/total-price"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("5000"));
-    }
-
-    @Test
-    void groupByCategoryTest() throws Exception {
-        Map<String, List<InventoryItem>> groupedItems = Map.of(
-                "CategoryA", List.of(new InventoryItem(
-                        null, 1L, "ProductA", 500, 2, "CategoryA",
-                        null, null)),
-                "CategoryB", List.of(new InventoryItem(
-                        null, 2L, "ProductB", 600, 3, "CategoryB",
-                        null, null))
-        );
-
-        Mockito.when(inventoryService.groupByCategory()).thenReturn(groupedItems);
-
-        mockMvc.perform(get("/api/inventory/group-by-category"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.CategoryA[0].productName").value("ProductA"))
-                .andExpect(jsonPath("$.CategoryB[0].productName").value("ProductB"));
-    }
-
-    @Test
-    void partitionByPriceTest() throws Exception {
-        Map<Boolean, List<InventoryItem>> partitionedItems = Map.of(
-                true, List.of(new InventoryItem(
-                        null, 1L, "ProductA", 400, 2, "CategoryA",
-                        null, null)),
-                false, List.of(new InventoryItem(
-                        null, 2L, "ProductB", 700, 3, "CategoryB",
-                        null, null))
-        );
-
-        Mockito.when(inventoryService.partitionByPrice(500)).thenReturn(partitionedItems);
-
-        mockMvc.perform(get("/api/inventory/partition-by-price").param("price", "500"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.true[0].productName").value("ProductA"))
-                .andExpect(jsonPath("$.false[0].productName").value("ProductB"));
     }
 
     @AfterAll

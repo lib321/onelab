@@ -1,6 +1,7 @@
 package com.onelab.microservices;
 
 import com.onelab.microservices.dto.InventoryItemDTO;
+import com.onelab.microservices.dto.ProductByCategoryDTO;
 import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -212,6 +214,35 @@ public class ProductServiceTest {
 
         assertThrowsResponseStatus(HttpStatus.BAD_REQUEST, "Имя продукта не может быть пустым",
                 () -> productService.updateProduct(1L, invalidDTO, AUTH_HEADER));
+    }
+
+    @Test
+    void testGroupProductsByCategory() {
+        Category c1 = new Category(1L, "Electronics", new ArrayList<>());
+        Category c2 = new Category(2L, "Furniture", new ArrayList<>());
+
+        List<Product> products = List.of(
+                new Product(1L, "Laptop", 1000, 5, c1, null , null),
+                new Product(2L, "Smartphone", 800, 10, c1, null, null),
+                new Product(3L, "Table", 200, 3, c2, null ,null)
+        );
+
+        Mockito.when(productRepository.findAll()).thenReturn(products);
+
+        Map<String, List<ProductByCategoryDTO>> result = productService.groupProductsByCategory();
+
+        assertEquals(2, result.size());
+        assertTrue(result.containsKey("Electronics"));
+        assertTrue(result.containsKey("Furniture"));
+
+        List<ProductByCategoryDTO> electronics = result.get("Electronics");
+        assertEquals(2, electronics.size());
+        assertEquals("Laptop", electronics.get(0).getProductName());
+        assertEquals("Smartphone", electronics.get(1).getProductName());
+
+        List<ProductByCategoryDTO> furniture = result.get("Furniture");
+        assertEquals(1, furniture.size());
+        assertEquals("Table", furniture.get(0).getProductName());
     }
 
     private void mockAdminAccess(boolean isAdmin) {
