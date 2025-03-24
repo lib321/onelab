@@ -84,12 +84,19 @@ public class OrderService {
     public void deleteOrder(Long id, String authHeader) {
         validateUser(authHeader);
 
-        if (!orderRepository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Заказ не найден");
-        }
-        orderRepository.deleteById(id);
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Заказ не найден"));
+
+        List<InventoryUpdateDTO> updates = order.getItems().stream()
+                .map(item -> new InventoryUpdateDTO(item.getProductId(), item.getQuantity(), 0))
+                .collect(Collectors.toList());
+
+        kafkaProducerService.sendMessage("order-events-update", "DELETE", updates);
+
+        orderRepository.delete(order);
         kafkaProducerService.sendMessage("order-events", "DELETE", "Order ID: " + id);
     }
+
 
     @Transactional(readOnly = true)
     public List<OrderResponseDTO> getOrdersByCustomerName(String customerName, String authHeader) {

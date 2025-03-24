@@ -1,5 +1,6 @@
 package com.onelab.microservices.event;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onelab.microservices.dto.InventoryItemDTO;
 import com.onelab.microservices.dto.InventoryUpdateDTO;
@@ -8,6 +9,8 @@ import com.onelab.microservices.service.InventoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Slf4j
 @Service
@@ -50,13 +53,13 @@ public class KafkaConsumerService {
     public void consumeOrderEventUpdate(KafkaMessageDTO message) {
         log.info("Получено Kafka сообщение: action='{}', data={}", message.getAction(), message.getData());
 
-        InventoryUpdateDTO updateDTO = convertOrderDTOtoItemDTO(message.getData());
-        inventoryService.updateInventory(updateDTO);
+        List<InventoryUpdateDTO> updateDTOs = convertToListOfItemDTO(message.getData());
+        updateDTOs.forEach(inventoryService::updateInventory);
     }
 
-    private InventoryUpdateDTO convertOrderDTOtoItemDTO(Object data) {
+    private List<InventoryUpdateDTO> convertToListOfItemDTO(Object data) {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.convertValue(data, InventoryUpdateDTO.class);
+        return objectMapper.convertValue(data, new TypeReference<List<InventoryUpdateDTO>>() {});
     }
 
     private InventoryItemDTO convertToDTO(Object data) {
