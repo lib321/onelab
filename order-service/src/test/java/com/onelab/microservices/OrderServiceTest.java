@@ -110,20 +110,26 @@ class OrderServiceTest {
     @Test
     void deleteOrder_whenExist_thenShouldDelete() {
         when(userFeignInterface.validateUser(AUTH_HEADER)).thenReturn(ResponseEntity.ok().build());
-        when(orderRepository.existsById(1L)).thenReturn(true);
+        when(orderRepository.findById(1L)).thenReturn(Optional.of(order));
+
         orderService.deleteOrder(1L, AUTH_HEADER);
+
+        verify(kafkaProducerService, times(1)).sendMessage(eq("order-events-update"), eq("DELETE"), any());
         verify(kafkaProducerService, times(1)).sendMessage(eq("order-events"), eq("DELETE"), eq("Order ID: 1"));
-        verify(orderRepository, times(1)).deleteById(1L);
+        verify(orderRepository, times(1)).delete(order);
     }
 
     @Test
     void deleteOrder_whenNotExist_thenShouldNotDelete() {
         when(userFeignInterface.validateUser(AUTH_HEADER)).thenReturn(ResponseEntity.ok().build());
-        when(orderRepository.existsById(2L)).thenReturn(false);
+        when(orderRepository.findById(2L)).thenReturn(Optional.empty());
+
         assertThrows(ResponseStatusException.class, () -> orderService.deleteOrder(2L, AUTH_HEADER));
-        verify(kafkaProducerService, never()).sendMessage(anyString(), anyString(), anyString());
+
+        verify(kafkaProducerService, never()).sendMessage(anyString(), anyString(), any());
         verify(orderRepository, never()).deleteById(anyLong());
     }
+
 
     @Test
     void getOrderByCustomerName_thenReturnOrder() {

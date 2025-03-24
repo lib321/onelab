@@ -1,9 +1,6 @@
 package com.onelab.microservices;
 
-import com.onelab.microservices.dto.InventoryItemDTO;
-import com.onelab.microservices.dto.InventoryRequestDTO;
-import com.onelab.microservices.dto.InventoryResponseDTO;
-import com.onelab.microservices.dto.InventoryUpdateDTO;
+import com.onelab.microservices.dto.*;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.repository.InventoryRepository;
@@ -91,14 +88,17 @@ public class InventoryServiceTest {
     void checkAndReserveInventory_whenValid_shouldReserve() {
         InventoryRequestDTO requestDTO = new InventoryRequestDTO(
                 "ProductA", 3, "customer1");
+        UpdateQuantityDTO updateQuantityDTO = new UpdateQuantityDTO(1L, 7);
 
         when(inventoryRepository.findByProductName(requestDTO.getProductName())).thenReturn(Optional.of(item));
+        when(inventoryRepository.save(any())).thenReturn(item);
 
         InventoryResponseDTO responseDTO = inventoryService.checkAndReserveInventory(requestDTO);
 
         assertTrue(responseDTO.isAvailable());
         assertEquals(7, item.getQuantity());
         verify(kafkaProducerService).sendMessage("order-events", "CONFIRMED", requestDTO);
+        verify(kafkaProducerService).sendMessage("product-quantity-update", "UPDATE", updateQuantityDTO);
     }
 
     @Test
@@ -148,15 +148,22 @@ public class InventoryServiceTest {
                 LocalDate.of(2024, 10, 24),
                 LocalDate.of(2024, 10, 28));
 
+        InventoryItem updatedItem = new InventoryItem(
+                item.getId(), 1L, "Update", 500, 2, "CategoryA",
+                item.getAddedAt(), LocalDate.of(2025, 3, 25));
+
         when(inventoryRepository.findByProductId(updatedDTO.getProductId())).thenReturn(Optional.of(item));
+        when(inventoryRepository.save(any())).thenReturn(updatedItem);
 
         InventoryItemDTO result = inventoryService.restockProduct(updatedDTO);
 
         assertNotNull(result);
-        assertEquals("Update", item.getProductName());
-        assertEquals(2, item.getQuantity());
-        assertNotEquals(item.getUpdatedAt(), result.getUpdatedAt());
+        assertEquals("Update", result.getProductName());
+        assertEquals(2, result.getQuantity());
+        assertNotEquals(updatedDTO.getUpdatedAt(), result.getUpdatedAt());
     }
+
+
 
     @Test
     void isStockLow_shouldReturnFalse() {
@@ -232,6 +239,7 @@ public class InventoryServiceTest {
     void updateInventory_shouldUpdateStock() {
         InventoryUpdateDTO updateItemStock = new InventoryUpdateDTO(1L, 2, 4);
         when(inventoryRepository.findByProductId(updateItemStock.getProductId())).thenReturn(Optional.of(item));
+        when(inventoryRepository.save(any())).thenReturn(item);
         inventoryService.updateInventory(updateItemStock);
 
         assertEquals(8, item.getQuantity());
