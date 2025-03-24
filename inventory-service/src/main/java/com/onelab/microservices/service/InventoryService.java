@@ -161,5 +161,21 @@ public class InventoryService {
                     updatedItem.getProductId(), updatedItem.getQuantity()));
         }
     }
+
+    public List<ItemDTO> getItemsByCategoryAndPriceRange(String category, int min, int max) {
+        return inventoryRepository.findByCategoryAndPriceRange(category, min, max)
+                .stream()
+                .map(item -> new ItemDTO(item.getProductName(), item.getPrice(), item.getQuantity()))
+                .sorted(Comparator.comparingInt(ItemDTO::price))
+                .collect(Collectors.toList());
+    }
+
+    public List<ItemDTO> searchByProductName(String keyword) {
+        return inventoryRepository.findByProductNameMatch(keyword)
+                .stream()
+                .map(item -> new ItemDTO(item.getProductName(), item.getPrice(), item.getQuantity()))
+                .collect(Collectors.toList());
+    }
+
 }
 

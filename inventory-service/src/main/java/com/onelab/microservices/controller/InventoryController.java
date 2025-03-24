@@ -3,6 +3,7 @@ package com.onelab.microservices.controller;
 import com.onelab.microservices.dto.InventoryItemDTO;
 import com.onelab.microservices.dto.InventoryRequestDTO;
 import com.onelab.microservices.dto.InventoryResponseDTO;
+import com.onelab.microservices.dto.ItemDTO;
 import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.service.InventoryService;
 import lombok.RequiredArgsConstructor;
@@ -65,5 +66,18 @@ public class InventoryController {
     public ResponseEntity<Map<Long, Boolean>> checkStockAvailability(@RequestBody List<InventoryItemDTO> items) {
         Map<Long, Boolean> stockStatus = inventoryService.checkStock(items);
         return ResponseEntity.ok(stockStatus);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<ItemDTO>> getFilteredItems(
+            @RequestParam String category,
+            @RequestParam int minPrice,
+            @RequestParam int maxPrice) {
+        return ResponseEntity.ok(inventoryService.getItemsByCategoryAndPriceRange(category, minPrice, maxPrice));
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ItemDTO>> searchByProductName(@RequestParam String keyword) {
+        return ResponseEntity.ok(inventoryService.searchByProductName(keyword));
     }
 }

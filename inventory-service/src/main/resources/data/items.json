@@ -1,54 +1,904 @@
 {
   "items": [
-    { "productId": 1, "productName": "ASUS ROG Zephyrus G14", "quantity": 10, "categoryName": "Ноутбуки и ультрабуки", "price": 1500, "addedAt": "2018-03-01" },
-    { "productId": 2, "productName": "Apple MacBook Pro 16", "quantity": 5, "categoryName": "Ноутбуки и ультрабуки", "price": 2500, "addedAt": "2018-03-02" },
-    { "productId": 3, "productName": "Dell XPS 13", "quantity": 8, "categoryName": "Ноутбуки и ультрабуки", "price": 1800, "addedAt": "2024-03-03" },
-    { "productId": 4, "productName": "Acer Predator Helios 300", "quantity": 7, "categoryName": "Игровые компьютеры", "price": 1300, "addedAt": "2024-03-04" },
-    { "productId": 5, "productName": "MSI Trident 3", "quantity": 6, "categoryName": "Игровые компьютеры", "price": 1200, "addedAt": "2019-03-05" },
-    { "productId": 6, "productName": "Intel Core i9-13900K", "quantity": 15, "categoryName": "Процессоры", "price": 600, "addedAt": "2024-03-06" },
-    { "productId": 7, "productName": "AMD Ryzen 9 7950X", "quantity": 12, "categoryName": "Процессоры", "price": 550, "addedAt": "2020-03-07" },
-    { "productId": 8, "productName": "ASUS ROG Strix B650", "quantity": 10, "categoryName": "Материнские платы", "price": 250, "addedAt": "2024-03-08" },
-    { "productId": 9, "productName": "MSI MAG Z790 TOMAHAWK", "quantity": 8, "categoryName": "Материнские платы", "price": 300, "addedAt": "2021-03-09" },
-    { "productId": 10, "productName": "NVIDIA RTX 4090", "quantity": 5, "categoryName": "Видеокарты", "price": 1600, "addedAt": "2023-03-10" },
-    { "productId": 11, "productName": "AMD Radeon RX 7900 XT", "quantity": 7, "categoryName": "Видеокарты", "price": 900, "addedAt": "2023-03-11" },
-    { "productId": 12, "productName": "Kingston Fury 32GB DDR5", "quantity": 20, "categoryName": "Оперативная память", "price": 150, "addedAt": "2025-03-12" },
-    { "productId": 13, "productName": "Corsair Vengeance 16GB DDR4", "quantity": 18, "categoryName": "Оперативная память", "price": 100, "addedAt": "2021-03-13" },
-    { "productId": 14, "productName": "Samsung 980 Pro 1TB SSD", "quantity": 25, "categoryName": "Жесткие диски и SSD", "price": 140, "addedAt": "2024-03-14" },
-    { "productId": 15, "productName": "WD Black 2TB HDD", "quantity": 30, "categoryName": "Жесткие диски и SSD", "price": 90, "addedAt": "2020-03-15" },
-    { "productId": 16, "productName": "LG UltraGear 32\" 4K", "quantity": 8, "categoryName": "Мониторы", "price": 500, "addedAt": "2020-03-16" },
-    { "productId": 17, "productName": "ASUS TUF Gaming 27\"", "quantity": 10, "categoryName": "Мониторы", "price": 350, "addedAt": "2021-03-17" },
-    { "productId": 18, "productName": "Logitech G915", "quantity": 15, "categoryName": "Клавиатуры и мыши", "price": 200, "addedAt": "2022-03-18" },
-    { "productId": 19, "productName": "Razer DeathAdder V2", "quantity": 20, "categoryName": "Клавиатуры и мыши", "price": 70, "addedAt": "2024-03-19" },
-    { "productId": 20, "productName": "NZXT H710i", "quantity": 10, "categoryName": "Охлаждение и корпуса", "price": 180, "addedAt": "2025-03-20" },
-    { "productId": 21, "productName": "Cooler Master Hyper 222", "quantity": 15, "categoryName": "Охлаждение и корпуса", "price": 50, "addedAt": "2025-03-21" },
-    { "productId": 22, "productName": "ASUS ROG Zephyrus G143", "quantity": 10, "categoryName": "Ноутбуки и ультрабуки", "price": 1500, "addedAt": "2018-03-01" },
-    { "productId": 23, "productName": "Apple MacBook Pro 117", "quantity": 5, "categoryName": "Ноутбуки и ультрабуки", "price": 2500, "addedAt": "2018-03-02" },
-    { "productId": 24, "productName": "Dell XPS 133", "quantity": 8, "categoryName": "Ноутбуки и ультрабуки", "price": 1800, "addedAt": "2024-03-03" },
-    { "productId": 25, "productName": "Acer Predator Helios 3001", "quantity": 7, "categoryName": "Игровые компьютеры", "price": 1300, "addedAt": "2024-03-04" },
-    { "productId": 26, "productName": "MSI Trident 2", "quantity": 6, "categoryName": "Игровые компьютеры", "price": 1200, "addedAt": "2019-03-05" },
-    { "productId": 27, "productName": "Intel Core i9-12900K", "quantity": 15, "categoryName": "Процессоры", "price": 600, "addedAt": "2024-03-06" },
-    { "productId": 28, "productName": "AMD Ryzen 7 7950X", "quantity": 12, "categoryName": "Процессоры", "price": 550, "addedAt": "2020-03-07" },
-    { "productId": 29, "productName": "ASUS ROG Strix B651", "quantity": 10, "categoryName": "Материнские платы", "price": 250, "addedAt": "2024-03-08" },
-    { "productId": 30, "productName": "MSI MAG Z690 TOMAHAWK", "quantity": 8, "categoryName": "Материнские платы", "price": 300, "addedAt": "2021-03-09" },
-    { "productId": 31, "productName": "NVIDIA RTX 5090", "quantity": 5, "categoryName": "Видеокарты", "price": 1600, "addedAt": "2023-03-10" },
-    { "productId": 32, "productName": "AMD Radeon RX 9900 XT", "quantity": 7, "categoryName": "Видеокарты", "price": 900, "addedAt": "2023-03-11" },
-    { "productId": 33, "productName": "Kingston Fury 16GB DDR5", "quantity": 20, "categoryName": "Оперативная память", "price": 150, "addedAt": "2021-03-12" },
-    { "productId": 34, "productName": "Corsair Vengeance 16GB DDR5", "quantity": 18, "categoryName": "Оперативная память", "price": 100, "addedAt": "2020-03-13" },
-    { "productId": 35, "productName": "Samsung 980 Pro 2TB SSD", "quantity": 25, "categoryName": "Жесткие диски и SSD", "price": 140, "addedAt": "2024-03-14" },
-    { "productId": 36, "productName": "WD Black 1TB HDD", "quantity": 30, "categoryName": "Жесткие диски и SSD", "price": 90, "addedAt": "2020-03-15" },
-    { "productId": 37, "productName": "LG UltraGear 27\" 2K", "quantity": 8, "categoryName": "Мониторы", "price": 500, "addedAt": "2020-03-16" },
-    { "productId": 38, "productName": "ASUS TUF Gaming 21\"", "quantity": 10, "categoryName": "Мониторы", "price": 350, "addedAt": "2021-03-17" },
-    { "productId": 39, "productName": "Logitech G815", "quantity": 15, "categoryName": "Клавиатуры и мыши", "price": 200, "addedAt": "2022-03-18" },
-    { "productId": 40, "productName": "Razer DeathAdder V3", "quantity": 20, "categoryName": "Клавиатуры и мыши", "price": 70, "addedAt": "2024-03-19" },
-    { "productId": 41, "productName": "NZXT H610i", "quantity": 10, "categoryName": "Охлаждение и корпуса", "price": 180, "addedAt": "2025-03-20" },
-    { "productId": 42, "productName": "Cooler Master Hyper 213", "quantity": 15, "categoryName": "Охлаждение и корпуса", "price": 50, "addedAt": "2025-03-21" },
-    { "productId": 43, "productName": "Corsair Vengeance 16GB DDR3", "quantity": 18, "categoryName": "Оперативная память", "price": 100, "addedAt": "2019-03-13" },
-    { "productId": 44, "productName": "Samsung 780 Pro 1TB SSD", "quantity": 25, "categoryName": "Жесткие диски и SSD", "price": 140, "addedAt": "2024-03-14" },
-    { "productId": 45, "productName": "WD Black 1TB SSD", "quantity": 30, "categoryName": "Жесткие диски и SSD", "price": 90, "addedAt": "2020-03-15" },
-    { "productId": 46, "productName": "LG UltraGear 34\" 4K", "quantity": 8, "categoryName": "Мониторы", "price": 500, "addedAt": "2020-03-16" },
-    { "productId": 47, "productName": "ASUS TUF Gaming 32\"", "quantity": 10, "categoryName": "Мониторы", "price": 350, "addedAt": "2021-03-17" },
-    { "productId": 48, "productName": "Logitech G515", "quantity": 15, "categoryName": "Клавиатуры и мыши", "price": 200, "addedAt": "2022-03-18" },
-    { "productId": 49, "productName": "Razer DeathAdder V1", "quantity": 20, "categoryName": "Клавиатуры и мыши", "price": 70, "addedAt": "2024-03-19" },
-    { "productId": 50, "productName": "NZXT H710g", "quantity": 10, "categoryName": "Охлаждение и корпуса", "price": 180, "addedAt": "2025-03-20" }
+    {
+      "productId": 1,
+      "productName": "ASUS ROG Zephyrus G14",
+      "price": 179990,
+      "quantity": 5,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2018-10-23",
+      "updatedAt": "2018-10-23"
+    },
+    {
+      "productId": 2,
+      "productName": "Apple MacBook Air M2",
+      "price": 239990,
+      "quantity": 3,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2022-06-15",
+      "updatedAt": "2023-01-10"
+    },
+    {
+      "productId": 3,
+      "productName": "Samsung Galaxy S23 Ultra",
+      "price": 499990,
+      "quantity": 10,
+      "categoryName": "Смартфоны",
+      "addedAt": "2023-02-01",
+      "updatedAt": "2023-07-20"
+    },
+    {
+      "productId": 4,
+      "productName": "Sony PlayStation 5",
+      "price": 269990,
+      "quantity": 7,
+      "categoryName": "Игровые приставки",
+      "addedAt": "2020-11-12",
+      "updatedAt": "2022-05-18"
+    },
+    {
+      "productId": 5,
+      "productName": "LG OLED C1 55''",
+      "price": 599990,
+      "quantity": 4,
+      "categoryName": "Телевизоры",
+      "addedAt": "2021-08-30",
+      "updatedAt": "2023-04-15"
+    },
+    {
+      "productId": 6,
+      "productName": "Bose QuietComfort 45",
+      "price": 129990,
+      "quantity": 6,
+      "categoryName": "Наушники",
+      "addedAt": "2022-09-01",
+      "updatedAt": "2023-03-10"
+    },
+    {
+      "productId": 7,
+      "productName": "Canon EOS R6",
+      "price": 799990,
+      "quantity": 2,
+      "categoryName": "Фотокамеры",
+      "addedAt": "2020-07-09",
+      "updatedAt": "2022-12-01"
+    },
+    {
+      "productId": 8,
+      "productName": "Apple Watch Series 8",
+      "price": 199990,
+      "quantity": 8,
+      "categoryName": "Умные часы",
+      "addedAt": "2022-09-16",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 9,
+      "productName": "NVIDIA GeForce RTX 4090",
+      "price": 1199990,
+      "quantity": 5,
+      "categoryName": "Видеокарты",
+      "addedAt": "2022-10-12",
+      "updatedAt": "2023-01-05"
+    },
+    {
+      "productId": 10,
+      "productName": "Microsoft Xbox Series X",
+      "price": 249990,
+      "quantity": 9,
+      "categoryName": "Игровые приставки",
+      "addedAt": "2020-11-10",
+      "updatedAt": "2022-06-25"
+    },
+    {
+      "productId": 11,
+      "productName": "Samsung Galaxy Tab S8",
+      "price": 319990,
+      "quantity": 4,
+      "categoryName": "Планшеты",
+      "addedAt": "2022-02-09",
+      "updatedAt": "2023-01-12"
+    },
+    {
+      "productId": 12,
+      "productName": "Dell XPS 15",
+      "price": 499990,
+      "quantity": 3,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2021-06-15",
+      "updatedAt": "2022-11-01"
+    },
+    {
+      "productId": 13,
+      "productName": "Google Pixel 7 Pro",
+      "price": 349990,
+      "quantity": 6,
+      "categoryName": "Смартфоны",
+      "addedAt": "2022-10-13",
+      "updatedAt": "2023-05-10"
+    },
+    {
+      "productId": 14,
+      "productName": "Sony WH-1000XM5",
+      "price": 149990,
+      "quantity": 5,
+      "categoryName": "Наушники",
+      "addedAt": "2022-05-20",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 15,
+      "productName": "Asus ROG Strix RTX 3080",
+      "price": 899990,
+      "quantity": 4,
+      "categoryName": "Видеокарты",
+      "addedAt": "2020-09-17",
+      "updatedAt": "2023-01-30"
+    },
+    {
+      "productId": 16,
+      "productName": "Apple iPad Pro 12.9'' M2",
+      "price": 649990,
+      "quantity": 3,
+      "categoryName": "Планшеты",
+      "addedAt": "2022-10-26",
+      "updatedAt": "2023-04-22"
+    },
+    {
+      "productId": 17,
+      "productName": "Samsung Odyssey G9",
+      "price": 499990,
+      "quantity": 2,
+      "categoryName": "Мониторы",
+      "addedAt": "2021-07-01",
+      "updatedAt": "2022-09-30"
+    },
+    {
+      "productId": 18,
+      "productName": "Lenovo Legion 5 Pro",
+      "price": 379990,
+      "quantity": 7,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2021-08-15",
+      "updatedAt": "2023-06-12"
+    },
+    {
+      "productId": 19,
+      "productName": "DJI Mini 3 Pro",
+      "price": 349990,
+      "quantity": 5,
+      "categoryName": "Дроны",
+      "addedAt": "2022-05-10",
+      "updatedAt": "2023-02-05"
+    },
+    {
+      "productId": 20,
+      "productName": "Logitech MX Master 3S",
+      "price": 69990,
+      "quantity": 9,
+      "categoryName": "Компьютерные аксессуары",
+      "addedAt": "2022-06-07",
+      "updatedAt": "2023-01-17"
+    },
+    {
+      "productId": 21,
+      "productName": "Philips Hue Smart Bulb",
+      "price": 29990,
+      "quantity": 15,
+      "categoryName": "Умный дом",
+      "addedAt": "2021-03-25",
+      "updatedAt": "2022-11-10"
+    },
+    {
+      "productId": 22,
+      "productName": "Apple AirPods Pro 2",
+      "price": 129990,
+      "quantity": 10,
+      "categoryName": "Наушники",
+      "addedAt": "2022-09-23",
+      "updatedAt": "2023-03-28"
+    },
+    {
+      "productId": 23,
+      "productName": "Samsung Smart Monitor M8",
+      "price": 229990,
+      "quantity": 4,
+      "categoryName": "Мониторы",
+      "addedAt": "2022-04-01",
+      "updatedAt": "2023-02-12"
+    },
+    {
+      "productId": 24,
+      "productName": "GoPro Hero 11 Black",
+      "price": 279990,
+      "quantity": 6,
+      "categoryName": "Экшн-камеры",
+      "addedAt": "2022-09-14",
+      "updatedAt": "2023-04-05"
+    },
+    {
+      "productId": 25,
+      "productName": "Samsung Jet 90",
+      "price": 199990,
+      "quantity": 3,
+      "categoryName": "Бытовая техника",
+      "addedAt": "2021-05-20",
+      "updatedAt": "2022-10-08"
+    },
+    {
+      "productId": 26,
+      "productName": "Garmin Fenix 7X",
+      "price": 349990,
+      "quantity": 5,
+      "categoryName": "Умные часы",
+      "addedAt": "2022-01-18",
+      "updatedAt": "2023-06-02"
+    },
+    {
+      "productId": 27,
+      "productName": "HyperX Alloy Origins",
+      "price": 89990,
+      "quantity": 7,
+      "categoryName": "Клавиатуры",
+      "addedAt": "2020-08-10",
+      "updatedAt": "2023-03-09"
+    },
+    {
+      "productId": 28,
+      "productName": "Samsung The Frame 55''",
+      "price": 499990,
+      "quantity": 2,
+      "categoryName": "Телевизоры",
+      "addedAt": "2021-09-05",
+      "updatedAt": "2022-12-10"
+    },
+    {
+      "productId": 29,
+      "productName": "Dyson V15 Detect",
+      "price": 289990,
+      "quantity": 4,
+      "categoryName": "Бытовая техника",
+      "addedAt": "2022-05-01",
+      "updatedAt": "2023-01-25"
+    },
+    {
+      "productId": 30,
+      "productName": "JBL Charge 5",
+      "price": 99990,
+      "quantity": 8,
+      "categoryName": "Аудиотехника",
+      "addedAt": "2021-07-15",
+      "updatedAt": "2023-03-30"
+    },
+    {
+      "productId": 31,
+      "productName": "Canon EOS R5",
+      "price": 1499990,
+      "quantity": 3,
+      "categoryName": "Камеры",
+      "addedAt": "2021-06-20",
+      "updatedAt": "2023-05-12"
+    },
+    {
+      "productId": 32,
+      "productName": "Bose QuietComfort 45",
+      "price": 129990,
+      "quantity": 6,
+      "categoryName": "Наушники",
+      "addedAt": "2022-08-15",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 33,
+      "productName": "MSI GeForce RTX 4070 Ti",
+      "price": 1199990,
+      "quantity": 4,
+      "categoryName": "Видеокарты",
+      "addedAt": "2023-01-05",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 34,
+      "productName": "Xiaomi Mi Pad 5",
+      "price": 219990,
+      "quantity": 7,
+      "categoryName": "Планшеты",
+      "addedAt": "2022-07-20",
+      "updatedAt": "2023-03-08"
+    },
+    {
+      "productId": 35,
+      "productName": "LG UltraGear 34GN850",
+      "price": 349990,
+      "quantity": 5,
+      "categoryName": "Мониторы",
+      "addedAt": "2021-11-10",
+      "updatedAt": "2022-12-30"
+    },
+    {
+      "productId": 36,
+      "productName": "Razer Blade 17",
+      "price": 899990,
+      "quantity": 2,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2021-12-15",
+      "updatedAt": "2023-05-20"
+    },
+    {
+      "productId": 37,
+      "productName": "Parrot Anafi",
+      "price": 299990,
+      "quantity": 3,
+      "categoryName": "Дроны",
+      "addedAt": "2020-09-30",
+      "updatedAt": "2022-10-18"
+    },
+    {
+      "productId": 38,
+      "productName": "Corsair K95 RGB Platinum",
+      "price": 109990,
+      "quantity": 8,
+      "categoryName": "Клавиатуры",
+      "addedAt": "2020-12-10",
+      "updatedAt": "2023-04-22"
+    },
+    {
+      "productId": 39,
+      "productName": "Ecovacs Deebot T9+",
+      "price": 279990,
+      "quantity": 4,
+      "categoryName": "Бытовая техника",
+      "addedAt": "2022-06-01",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 40,
+      "productName": "Amazon Echo Show 10",
+      "price": 149990,
+      "quantity": 6,
+      "categoryName": "Умный дом",
+      "addedAt": "2021-02-18",
+      "updatedAt": "2022-11-05"
+    },
+    {
+      "productId": 41,
+      "productName": "HyperX Cloud II Wireless",
+      "price": 99990,
+      "quantity": 9,
+      "categoryName": "Наушники",
+      "addedAt": "2022-01-22",
+      "updatedAt": "2023-03-30"
+    },
+    {
+      "productId": 42,
+      "productName": "BenQ EX3501R",
+      "price": 299990,
+      "quantity": 5,
+      "categoryName": "Мониторы",
+      "addedAt": "2021-07-01",
+      "updatedAt": "2022-12-08"
+    },
+    {
+      "productId": 43,
+      "productName": "Nikon Z9",
+      "price": 1899990,
+      "quantity": 3,
+      "categoryName": "Камеры",
+      "addedAt": "2021-11-20",
+      "updatedAt": "2023-05-30"
+    },
+    {
+      "productId": 44,
+      "productName": "TP-Link Deco X60",
+      "price": 129990,
+      "quantity": 7,
+      "categoryName": "Сетевое оборудование",
+      "addedAt": "2022-03-12",
+      "updatedAt": "2023-02-10"
+    },
+    {
+      "productId": 45,
+      "productName": "Xiaomi Smart Pet Feeder",
+      "price": 59990,
+      "quantity": 12,
+      "categoryName": "Умный дом",
+      "addedAt": "2022-08-25",
+      "updatedAt": "2023-04-07"
+    },
+    {
+      "productId": 46,
+      "productName": "Asus TUF Gaming A15",
+      "price": 299990,
+      "quantity": 5,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2021-09-12",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 47,
+      "productName": "Intel Core i9-13900K",
+      "price": 349990,
+      "quantity": 4,
+      "categoryName": "Процессоры",
+      "addedAt": "2022-10-01",
+      "updatedAt": "2023-06-05"
+    },
+    {
+      "productId": 48,
+      "productName": "LG OLED C2 65''",
+      "price": 999990,
+      "quantity": 2,
+      "categoryName": "Телевизоры",
+      "addedAt": "2022-04-15",
+      "updatedAt": "2023-05-10"
+    },
+    {
+      "productId": 49,
+      "productName": "Samsung Galaxy Z Fold 4",
+      "price": 1399990,
+      "quantity": 3,
+      "categoryName": "Смартфоны",
+      "addedAt": "2022-09-01",
+      "updatedAt": "2023-04-05"
+    },
+    {
+      "productId": 50,
+      "productName": "DJI Air 2S",
+      "price": 499990,
+      "quantity": 5,
+      "categoryName": "Дроны",
+      "addedAt": "2021-04-15",
+      "updatedAt": "2023-01-28"
+    },
+    {
+      "productId": 51,
+      "productName": "Apple MacBook Air M2",
+      "price": 799990,
+      "quantity": 4,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2022-07-10",
+      "updatedAt": "2023-03-15"
+    },
+    {
+      "productId": 52,
+      "productName": "Samsung Odyssey G9",
+      "price": 749990,
+      "quantity": 3,
+      "categoryName": "Мониторы",
+      "addedAt": "2021-06-05",
+      "updatedAt": "2023-02-20"
+    },
+    {
+      "productId": 53,
+      "productName": "Sony WH-1000XM5",
+      "price": 199990,
+      "quantity": 6,
+      "categoryName": "Наушники",
+      "addedAt": "2022-05-12",
+      "updatedAt": "2023-04-18"
+    },
+    {
+      "productId": 54,
+      "productName": "AMD Ryzen 9 7900X",
+      "price": 349990,
+      "quantity": 4,
+      "categoryName": "Процессоры",
+      "addedAt": "2022-10-10",
+      "updatedAt": "2023-05-05"
+    },
+    {
+      "productId": 55,
+      "productName": "GoPro Hero 11 Black",
+      "price": 299990,
+      "quantity": 5,
+      "categoryName": "Камеры",
+      "addedAt": "2022-09-15",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 56,
+      "productName": "DJI Mini 3 Pro",
+      "price": 699990,
+      "quantity": 4,
+      "categoryName": "Дроны",
+      "addedAt": "2022-06-01",
+      "updatedAt": "2023-01-10"
+    },
+    {
+      "productId": 57,
+      "productName": "Razer BlackWidow V4",
+      "price": 159990,
+      "quantity": 8,
+      "categoryName": "Клавиатуры",
+      "addedAt": "2022-12-01",
+      "updatedAt": "2023-04-30"
+    },
+    {
+      "productId": 58,
+      "productName": "Corsair Virtuoso RGB Wireless",
+      "price": 179990,
+      "quantity": 5,
+      "categoryName": "Наушники",
+      "addedAt": "2022-03-25",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 59,
+      "productName": "Apple iPad Pro 12.9",
+      "price": 899990,
+      "quantity": 4,
+      "categoryName": "Планшеты",
+      "addedAt": "2021-11-15",
+      "updatedAt": "2023-01-20"
+    },
+    {
+      "productId": 60,
+      "productName": "LG Gram 16",
+      "price": 599990,
+      "quantity": 3,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2022-08-30",
+      "updatedAt": "2023-03-10"
+    },
+    {
+      "productId": 61,
+      "productName": "Samsung The Frame 55''",
+      "price": 799990,
+      "quantity": 2,
+      "categoryName": "Телевизоры",
+      "addedAt": "2021-09-10",
+      "updatedAt": "2023-02-05"
+    },
+    {
+      "productId": 62,
+      "productName": "Microsoft Surface Laptop 5",
+      "price": 799990,
+      "quantity": 4,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2022-10-05",
+      "updatedAt": "2023-03-25"
+    },
+    {
+      "productId": 63,
+      "productName": "JBL Boombox 3",
+      "price": 249990,
+      "quantity": 5,
+      "categoryName": "Акустика",
+      "addedAt": "2022-07-15",
+      "updatedAt": "2023-02-20"
+    },
+    {
+      "productId": 64,
+      "productName": "NVIDIA RTX 4080",
+      "price": 1499990,
+      "quantity": 3,
+      "categoryName": "Видеокарты",
+      "addedAt": "2023-01-01",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 65,
+      "productName": "Philips Hue Lightstrip Plus",
+      "price": 99990,
+      "quantity": 6,
+      "categoryName": "Умный дом",
+      "addedAt": "2022-04-20",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 66,
+      "productName": "Sony Alpha A7 IV",
+      "price": 1199990,
+      "quantity": 3,
+      "categoryName": "Камеры",
+      "addedAt": "2021-12-10",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 67,
+      "productName": "Samsung Galaxy Tab S9 Ultra",
+      "price": 899990,
+      "quantity": 4,
+      "categoryName": "Планшеты",
+      "addedAt": "2023-02-05",
+      "updatedAt": "2023-07-10"
+    },
+    {
+      "productId": 68,
+      "productName": "Bose QuietComfort Earbuds II",
+      "price": 229990,
+      "quantity": 5,
+      "categoryName": "Наушники",
+      "addedAt": "2022-09-15",
+      "updatedAt": "2023-05-12"
+    },
+    {
+      "productId": 69,
+      "productName": "Gigabyte AORUS 17X",
+      "price": 1199990,
+      "quantity": 3,
+      "categoryName": "Ноутбуки",
+      "addedAt": "2023-01-20",
+      "updatedAt": "2023-06-30"
+    },
+    {
+      "productId": 70,
+      "productName": "Corsair K100 RGB",
+      "price": 189990,
+      "quantity": 7,
+      "categoryName": "Клавиатуры",
+      "addedAt": "2022-06-10",
+      "updatedAt": "2023-04-22"
+    },
+    {
+      "productId": 71,
+      "productName": "LG OLED C2 65''",
+      "price": 1399990,
+      "quantity": 2,
+      "categoryName": "Телевизоры",
+      "addedAt": "2022-11-01",
+      "updatedAt": "2023-06-05"
+    },
+    {
+      "productId": 72,
+      "productName": "Raspberry Pi 4 Model B",
+      "price": 99990,
+      "quantity": 8,
+      "categoryName": "Микрокомпьютеры",
+      "addedAt": "2021-10-15",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 73,
+      "productName": "Apple Watch Ultra",
+      "price": 799990,
+      "quantity": 5,
+      "categoryName": "Умные часы",
+      "addedAt": "2022-09-23",
+      "updatedAt": "2023-05-17"
+    },
+    {
+      "productId": 74,
+      "productName": "SteelSeries Aerox 9 Wireless",
+      "price": 179990,
+      "quantity": 6,
+      "categoryName": "Мыши",
+      "addedAt": "2022-07-05",
+      "updatedAt": "2023-04-15"
+    },
+    {
+      "productId": 75,
+      "productName": "MSI MEG Z690 Godlike",
+      "price": 1999990,
+      "quantity": 2,
+      "categoryName": "Материнские платы",
+      "addedAt": "2022-01-30",
+      "updatedAt": "2023-06-20"
+    },
+    {
+      "productId": 76,
+      "productName": "Google Nest Hub Max",
+      "price": 249990,
+      "quantity": 4,
+      "categoryName": "Умный дом",
+      "addedAt": "2021-09-12",
+      "updatedAt": "2023-02-10"
+    },
+    {
+      "productId": 77,
+      "productName": "Sony X95K 85''",
+      "price": 2499990,
+      "quantity": 2,
+      "categoryName": "Телевизоры",
+      "addedAt": "2022-10-07",
+      "updatedAt": "2023-06-25"
+    },
+    {
+      "productId": 78,
+      "productName": "BenQ EX3501R",
+      "price": 299990,
+      "quantity": 5,
+      "categoryName": "Мониторы",
+      "addedAt": "2021-11-14",
+      "updatedAt": "2023-05-30"
+    },
+    {
+      "productId": 79,
+      "productName": "Intel Core i9-13900K",
+      "price": 349999,
+      "quantity": 3,
+      "categoryName": "Процессоры",
+      "addedAt": "2022-11-10",
+      "updatedAt": "2023-07-01"
+    },
+    {
+      "productId": 80,
+      "productName": "DJI Mavic 3 Pro",
+      "price": 1199990,
+      "quantity": 3,
+      "categoryName": "Дроны",
+      "addedAt": "2023-02-18",
+      "updatedAt": "2023-07-10"
+    },
+    {
+      "productId": 81,
+      "productName": "HyperX Cloud Alpha Wireless",
+      "price": 159990,
+      "quantity": 5,
+      "categoryName": "Наушники",
+      "addedAt": "2022-04-05",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 82,
+      "productName": "Corsair iCUE H150i Elite",
+      "price": 299990,
+      "quantity": 4,
+      "categoryName": "Охлаждение",
+      "addedAt": "2022-05-20",
+      "updatedAt": "2023-06-25"
+    },
+    {
+      "productId": 83,
+      "productName": "Western Digital Black SN850X 2TB",
+      "price": 279990,
+      "quantity": 6,
+      "categoryName": "SSD",
+      "addedAt": "2022-08-30",
+      "updatedAt": "2023-07-05"
+    },
+    {
+      "productId": 84,
+      "productName": "Apple Mac Mini M2 Pro",
+      "price": 799990,
+      "quantity": 3,
+      "categoryName": "Микрокомпьютеры",
+      "addedAt": "2023-01-10",
+      "updatedAt": "2023-07-15"
+    },
+    {
+      "productId": 85,
+      "productName": "Samsung 990 Pro 1TB",
+      "price": 199990,
+      "quantity": 7,
+      "categoryName": "SSD",
+      "addedAt": "2022-10-20",
+      "updatedAt": "2023-06-30"
+    },
+    {
+      "productId": 86,
+      "productName": "Razer Naga X",
+      "price": 129990,
+      "quantity": 5,
+      "categoryName": "Мыши",
+      "addedAt": "2022-07-12",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 87,
+      "productName": "LG UltraFine 5K",
+      "price": 1199990,
+      "quantity": 2,
+      "categoryName": "Мониторы",
+      "addedAt": "2021-12-20",
+      "updatedAt": "2023-05-25"
+    },
+    {
+      "productId": 88,
+      "productName": "GIGABYTE RTX 4070 Ti",
+      "price": 1099990,
+      "quantity": 3,
+      "categoryName": "Видеокарты",
+      "addedAt": "2023-03-15",
+      "updatedAt": "2023-07-20"
+    },
+    {
+      "productId": 89,
+      "productName": "Sony PlayStation 5 Digital",
+      "price": 449990,
+      "quantity": 4,
+      "categoryName": "Консоли",
+      "addedAt": "2021-08-10",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 90,
+      "productName": "Microsoft Xbox Series X",
+      "price": 459990,
+      "quantity": 4,
+      "categoryName": "Консоли",
+      "addedAt": "2020-11-10",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 91,
+      "productName": "ASUS ROG Strix 850W Gold",
+      "price": 199990,
+      "quantity": 6,
+      "categoryName": "Блоки питания",
+      "addedAt": "2021-07-15",
+      "updatedAt": "2023-06-20"
+    },
+    {
+      "productId": 92,
+      "productName": "JBL Xtreme 3",
+      "price": 179990,
+      "quantity": 5,
+      "categoryName": "Акустика",
+      "addedAt": "2022-02-28",
+      "updatedAt": "2023-05-30"
+    },
+    {
+      "productId": 93,
+      "productName": "GoPro HERO11 Black",
+      "price": 249990,
+      "quantity": 4,
+      "categoryName": "Экшн-камеры",
+      "addedAt": "2022-09-14",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 94,
+      "productName": "ADATA XPG Lancer 32GB DDR5",
+      "price": 299990,
+      "quantity": 7,
+      "categoryName": "Оперативная память",
+      "addedAt": "2023-01-25",
+      "updatedAt": "2023-06-30"
+    },
+    {
+      "productId": 95,
+      "productName": "Samsung Odyssey G9",
+      "price": 999990,
+      "quantity": 3,
+      "categoryName": "Мониторы",
+      "addedAt": "2022-03-12",
+      "updatedAt": "2023-07-10"
+    },
+    {
+      "productId": 96,
+      "productName": "Anker PowerCore 26800",
+      "price": 99990,
+      "quantity": 6,
+      "categoryName": "Внешние аккумуляторы",
+      "addedAt": "2021-05-08",
+      "updatedAt": "2023-05-20"
+    },
+    {
+      "productId": 97,
+      "productName": "Canon EOS R5",
+      "price": 1599990,
+      "quantity": 2,
+      "categoryName": "Камеры",
+      "addedAt": "2020-10-18",
+      "updatedAt": "2023-06-05"
+    },
+    {
+      "productId": 98,
+      "productName": "NZXT Kraken X73 RGB",
+      "price": 289990,
+      "quantity": 4,
+      "categoryName": "Охлаждение",
+      "addedAt": "2022-07-20",
+      "updatedAt": "2023-07-01"
+    },
+    {
+      "productId": 99,
+      "productName": "Logitech G Pro X Superlight",
+      "price": 149990,
+      "quantity": 5,
+      "categoryName": "Мыши",
+      "addedAt": "2022-11-22",
+      "updatedAt": "2023-06-25"
+    },
+    {
+      "productId": 100,
+      "productName": "DJI RS 3 Pro Combo",
+      "price": 999990,
+      "quantity": 3,
+      "categoryName": "Стабилизаторы",
+      "addedAt": "2022-09-05",
+      "updatedAt": "2023-07-15"
+    }
   ]
 }
