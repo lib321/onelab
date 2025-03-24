@@ -244,4 +244,28 @@ public class InventoryServiceTest {
 
         assertEquals(8, item.getQuantity());
     }
+
+    @Test
+    void getItemsByCategoryAndPriceRangeTest() {
+        when(inventoryRepository.findByCategoryAndPriceRange("C2", 70, 180))
+                .thenReturn(items.subList(1, 3));
+
+        List<ItemDTO> result = inventoryService.getItemsByCategoryAndPriceRange("C2", 70, 180);
+        assertNotNull(result);
+        assertEquals(2, result.size());
+        assertEquals("P2", result.get(0).productName());
+        assertEquals("P3", result.get(1).productName());
+    }
+
+    @Test
+    void searchByProductNameTest() {
+        when(inventoryRepository.findByProductNameMatch("3"))
+                .thenReturn(List.of(items.get(2)));
+
+        List<ItemDTO> result = inventoryService.searchByProductName("3");
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        assertEquals("P3", result.get(0).productName());
+    }
 }

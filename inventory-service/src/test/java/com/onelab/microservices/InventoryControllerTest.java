@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.onelab.microservices.dto.InventoryItemDTO;
 import com.onelab.microservices.dto.InventoryRequestDTO;
 import com.onelab.microservices.dto.InventoryResponseDTO;
+import com.onelab.microservices.dto.ItemDTO;
 import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.service.InventoryService;
 import org.junit.jupiter.api.AfterAll;
@@ -52,6 +53,8 @@ public class InventoryControllerTest {
     private ObjectMapper objectMapper;
 
     private InventoryItemDTO itemDTO;
+    private List<ItemDTO> itemDTOs;
+
 
     @BeforeAll
     static void setUp() {
@@ -65,6 +68,11 @@ public class InventoryControllerTest {
                 1L, "ProductA", 500, 10, "CategoryA",
                 LocalDate.of(2024, 9, 25),
                 LocalDate.of(2024, 9, 25));
+
+        itemDTOs = List.of(
+                new ItemDTO("ASUS ROG Zephyrus G14", 179990, 5),
+                new ItemDTO("Lenovo Legion 5", 149990, 3)
+        );
     }
 
     @Test
@@ -190,6 +198,31 @@ public class InventoryControllerTest {
                 .andExpect(jsonPath("$.['1']").value(true))
                 .andExpect(jsonPath("$.['2']").value(false))
                 .andExpect(jsonPath("$.size()").value(2));
+    }
+
+    @Test
+    void getFilteredItems_shouldReturnFilteredItems() throws Exception {
+        when(inventoryService.getItemsByCategoryAndPriceRange("Ноутбуки", 100000, 200000)).thenReturn(itemDTOs);
+
+        mockMvc.perform(get("/api/inventory/filter")
+                        .param("category", "Ноутбуки")
+                        .param("minPrice", "100000")
+                        .param("maxPrice", "200000"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(2))
+                .andExpect(jsonPath("$[0].productName").value("ASUS ROG Zephyrus G14"))
+                .andExpect(jsonPath("$[1].productName").value("Lenovo Legion 5"));
+    }
+
+    @Test
+    void searchByProductName_shouldReturnMatchingItems() throws Exception {
+        when(inventoryService.searchByProductName("ASUS")).thenReturn(List.of(itemDTOs.get(0)));
+
+        mockMvc.perform(get("/api/inventory/search")
+                        .param("keyword", "ASUS"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].productName").value("ASUS ROG Zephyrus G14"));
     }
 
     @AfterAll
