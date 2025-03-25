@@ -32,8 +32,9 @@ public class ApiGatewayConfig {
                         )
                         .uri("http://localhost:8083")
                 )
-                .route(r -> r.path("/auth/**")
+                .route(r -> r.path("/**")
                         .filters(f -> f
+                                .prefixPath("/auth")
                                 .addResponseHeader("X-Powered-By", "Gateway Service")
                         )
                         .uri("http://localhost:8084")
