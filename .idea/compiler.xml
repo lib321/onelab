@@ -24,6 +24,7 @@
       <module name="inventory-service" options="-parameters" />
       <module name="order-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
+      <module name="shared-library" options="-parameters" />
       <module name="user-service" options="-parameters" />
     </option>
   </component>
