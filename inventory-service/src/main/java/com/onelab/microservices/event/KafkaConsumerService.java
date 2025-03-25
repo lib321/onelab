@@ -2,9 +2,9 @@ package com.onelab.microservices.event;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onelab.microservices.dto.InventoryItemDTO;
-import com.onelab.microservices.dto.InventoryUpdateDTO;
-import com.onelab.microservices.dto.KafkaMessageDTO;
+import com.onelab.dto.InventoryItemDTO;
+import com.onelab.dto.*;
+import com.onelab.dto.KafkaMessageDTO;
 import com.onelab.microservices.service.InventoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -18,8 +18,11 @@ public class KafkaConsumerService {
 
     private final InventoryService inventoryService;
 
-    public KafkaConsumerService(InventoryService inventoryService) {
+    private final ObjectMapper objectMapper;
+
+    public KafkaConsumerService(InventoryService inventoryService, ObjectMapper objectMapper) {
         this.inventoryService = inventoryService;
+        this.objectMapper = objectMapper;
     }
 
     @KafkaListener(topics = "product-events", groupId = "inventory-group")
@@ -58,12 +61,10 @@ public class KafkaConsumerService {
     }
 
     private List<InventoryUpdateDTO> convertToListOfItemDTO(Object data) {
-        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.convertValue(data, new TypeReference<List<InventoryUpdateDTO>>() {});
     }
 
     private InventoryItemDTO convertToDTO(Object data) {
-        ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.convertValue(data, InventoryItemDTO.class);
     }
 }

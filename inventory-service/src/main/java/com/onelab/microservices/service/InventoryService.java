@@ -1,6 +1,7 @@
 package com.onelab.microservices.service;
 
 import com.onelab.microservices.dto.*;
+import com.onelab.dto.*;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.repository.InventoryRepository;
@@ -12,10 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 
 @Service
@@ -24,7 +22,6 @@ public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
     private final KafkaProducerService kafkaProducerService;
-    private final Random random = new Random();
 
     public InventoryItemDTO add(InventoryItemDTO itemDTO) {
         InventoryItem item = new InventoryItem(

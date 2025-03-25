@@ -1,10 +1,7 @@
 package com.onelab.microservices.controller;
 
-import com.onelab.microservices.dto.InventoryItemDTO;
-import com.onelab.microservices.dto.InventoryRequestDTO;
-import com.onelab.microservices.dto.InventoryResponseDTO;
+import com.onelab.dto.*;
 import com.onelab.microservices.dto.ItemDTO;
-import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.service.InventoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,11 +1,8 @@
 package com.onelab.microservices;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onelab.microservices.dto.InventoryItemDTO;
-import com.onelab.microservices.dto.InventoryRequestDTO;
-import com.onelab.microservices.dto.InventoryResponseDTO;
+import com.onelab.dto.*;
 import com.onelab.microservices.dto.ItemDTO;
-import com.onelab.microservices.model.InventoryItem;
 import com.onelab.microservices.service.InventoryService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

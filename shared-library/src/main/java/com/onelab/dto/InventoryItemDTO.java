@@ -1,7 +1,6 @@
-package com.onelab.microservices.dto;
+package com.onelab.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,9 +18,7 @@ public class InventoryItemDTO {
     private int quantity;
     private String categoryName;
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate addedAt;
 
-    @JsonSerialize(using = LocalDateSerializer.class)
     private LocalDate updatedAt;
 }

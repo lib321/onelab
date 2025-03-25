@@ -1,4 +1,4 @@
-package com.onelab.microservices.dto;
+package com.onelab.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InventoryUpdateDTO {
+public class UpdateQuantityDTO {
+
     private Long productId;
-    private int oldQuantity;
-    private int newQuantity;
+    private int quantity;
 }

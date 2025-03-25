@@ -1,6 +1,6 @@
 package com.onelab.microservices.feign;
 
-import com.onelab.microservices.dto.InventoryItemDTO;
+import com.onelab.dto.InventoryItemDTO;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

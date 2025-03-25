@@ -1,6 +1,6 @@
 package com.onelab.microservices.service;
 
-import com.onelab.microservices.dto.InventoryItemDTO;
+import com.onelab.dto.InventoryItemDTO;
 import com.onelab.microservices.dto.ProductByCategoryDTO;
 import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.event.KafkaProducerService;

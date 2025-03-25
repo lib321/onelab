@@ -1,6 +1,7 @@
 package com.onelab.microservices;
 
 import com.onelab.microservices.dto.*;
+import com.onelab.dto.*;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.OrderFeignInterface;
 import com.onelab.microservices.feign.UserFeignInterface;

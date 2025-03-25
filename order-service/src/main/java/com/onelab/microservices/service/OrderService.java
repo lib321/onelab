@@ -1,6 +1,7 @@
 package com.onelab.microservices.service;
 
 import com.onelab.microservices.dto.*;
+import com.onelab.dto.*;
 import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.OrderFeignInterface;
 import com.onelab.microservices.feign.UserFeignInterface;
@@ -144,7 +145,7 @@ public class OrderService {
             }
 
             kafkaProducerService.sendMessage("order-events-update", "UPDATE",
-                    new InventoryUpdateDTO(updateItem.getProductId(), oldQuantity, newQuantity));
+                    List.of(new InventoryUpdateDTO(updateItem.getProductId(), oldQuantity, newQuantity)));
         });
 
         if (order.getItems().isEmpty()) {

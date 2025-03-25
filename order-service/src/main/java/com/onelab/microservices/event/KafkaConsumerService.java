@@ -1,8 +1,8 @@
 package com.onelab.microservices.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onelab.microservices.dto.InventoryRequestDTO;
-import com.onelab.microservices.dto.KafkaMessageDTO;
+import com.onelab.dto.*;
+import com.onelab.dto.KafkaMessageDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;

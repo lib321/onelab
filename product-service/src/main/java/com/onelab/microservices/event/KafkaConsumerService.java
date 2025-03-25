@@ -1,8 +1,8 @@
 package com.onelab.microservices.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.onelab.microservices.dto.KafkaMessageDTO;
-import com.onelab.microservices.dto.UpdateQuantityDTO;
+import com.onelab.dto.KafkaMessageDTO;
+import com.onelab.dto.UpdateQuantityDTO;
 import com.onelab.microservices.model.Product;
 import com.onelab.microservices.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;

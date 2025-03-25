@@ -1,6 +1,6 @@
 package com.onelab.microservices.event;
 
-import com.onelab.microservices.dto.KafkaMessageDTO;
+import com.onelab.dto.KafkaMessageDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

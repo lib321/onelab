@@ -7,7 +7,6 @@ import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
 import com.onelab.microservices.feign.UserFeignInterface;
 import com.onelab.microservices.model.Category;
-import com.onelab.microservices.model.Product;
 import com.onelab.microservices.service.ProductService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;

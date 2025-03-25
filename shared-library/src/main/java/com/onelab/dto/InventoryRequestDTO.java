@@ -1,4 +1,4 @@
-package com.onelab.microservices.dto;
+package com.onelab.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
