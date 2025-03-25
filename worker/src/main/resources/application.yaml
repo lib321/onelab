@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: worker
+
+camunda:
+  bpm:
+    client:
+      base-url: http://localhost:8094/engine-rest
+
+server:
+  port: 8095

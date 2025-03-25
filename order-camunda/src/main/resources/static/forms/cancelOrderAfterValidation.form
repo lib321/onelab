@@ -1,0 +1,81 @@
+{
+  "components": [
+    {
+      "label": "Причина отмены заказа",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0e4d384",
+        "columns": null
+      },
+      "id": "Field_0t0nd4f",
+      "key": "cancelReason",
+      "description": "Укажите причину отмены заказа",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0p0mwg2",
+        "columns": null
+      },
+      "id": "Field_0uvei3v",
+      "key": "customerName",
+      "properties": {},
+      "description": "Имя покупателя",
+      "readonly": true,
+      "defaultValue": "${customerName}"
+    },
+    {
+      "label": "",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1rdx0b0",
+        "columns": null
+      },
+      "id": "Field_1rmnodq",
+      "key": "firstItemName",
+      "description": "Товар",
+      "defaultValue": "${firstItemName}",
+      "readonly": true,
+      "properties": {}
+    },
+    {
+      "label": "",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_0b1zcvw",
+        "columns": null
+      },
+      "id": "Field_1adbpu6",
+      "key": "firstItemQuantity",
+      "description": "Количество",
+      "defaultValue": "${firstItemQuantity}",
+      "readonly": true
+    },
+    {
+      "label": "",
+      "type": "textfield",
+      "layout": {
+        "row": "Row_1c1eqbj",
+        "columns": null
+      },
+      "id": "Field_081gdj8",
+      "key": "Error_message",
+      "description": "Сообщение",
+      "readonly": true,
+      "defaultValue": "${Error_message}"
+    }
+  ],
+  "type": "default",
+  "id": "Form_01ccx4j",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.33.1"
+  },
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.22.0",
+  "schemaVersion": 18
+}

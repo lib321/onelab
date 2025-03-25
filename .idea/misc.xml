@@ -11,6 +11,8 @@
         <option value="$PROJECT_DIR$/inventory-service/pom.xml" />
         <option value="$PROJECT_DIR$/gateway/pom.xml" />
         <option value="$PROJECT_DIR$/shared-library/pom.xml" />
+        <option value="$PROJECT_DIR$/worker/pom.xml" />
+        <option value="$PROJECT_DIR$/order-camunda/pom.xml" />
       </list>
     </option>
   </component>
