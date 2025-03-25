@@ -5,6 +5,7 @@ import com.onelab.microservices.dto.ProductDTO;
 import com.onelab.microservices.model.Category;
 import com.onelab.microservices.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,4 +63,10 @@ public class ProductController {
         return ResponseEntity.ok(productService.groupProductsByCategory());
     }
 
+    @GetMapping
+    public ResponseEntity<Page<ProductByCategoryDTO>> getPagedProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "20") int size) {
+        return ResponseEntity.ok(productService.getPagedSortedProducts(page, size));
+    }
 }

@@ -7,6 +7,7 @@ import com.onelab.microservices.event.KafkaProducerService;
 import com.onelab.microservices.feign.ProductFeignInterface;
 import com.onelab.microservices.feign.UserFeignInterface;
 import com.onelab.microservices.model.Category;
+import com.onelab.microservices.model.Product;
 import com.onelab.microservices.service.ProductService;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -17,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -30,6 +33,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -78,7 +82,7 @@ public class ProductControllerTest {
 
     @BeforeEach
     void setUp() {
-        Mockito.when(userFeignInterface.validateUserRole(Mockito.anyString(), Mockito.anyString()))
+        when(userFeignInterface.validateUserRole(Mockito.anyString(), Mockito.anyString()))
                 .thenReturn(true);
         productDTO = new ProductDTO(
                 1L, "ProductA", 1000, 10, 1L,
@@ -88,7 +92,7 @@ public class ProductControllerTest {
 
     @Test
     void saveProductTest() throws Exception {
-        Mockito.when(productService.createProduct(Mockito.any(), Mockito.anyString())).thenReturn(productDTO);
+        when(productService.createProduct(Mockito.any(), Mockito.anyString())).thenReturn(productDTO);
 
         mockMvc.perform(post("/api/products/add")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +105,7 @@ public class ProductControllerTest {
 
     @Test
     void saveCategory() throws Exception {
-        Mockito.when(productService.createCategory(Mockito.any(), Mockito.anyString())).thenReturn(Optional.of(category));
+        when(productService.createCategory(Mockito.any(), Mockito.anyString())).thenReturn(Optional.of(category));
 
         mockMvc.perform(post("/api/products/add/category")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -114,7 +118,7 @@ public class ProductControllerTest {
 
     @Test
     void getProductByIdTest() throws Exception {
-        Mockito.when(productService.getProductById(Mockito.anyLong())).thenReturn(productDTO);
+        when(productService.getProductById(Mockito.anyLong())).thenReturn(productDTO);
 
         mockMvc.perform(get("/api/products/get/{id}", productDTO.getProductId()))
                 .andExpect(status().isOk())
@@ -131,7 +135,7 @@ public class ProductControllerTest {
                         LocalDate.of(2025, 10, 6))
         );
 
-        Mockito.when(productService.getAllProducts()).thenReturn(productDTOList);
+        when(productService.getAllProducts()).thenReturn(productDTOList);
 
         mockMvc.perform(get("/api/products/all"))
                 .andExpect(status().isOk())
@@ -143,7 +147,7 @@ public class ProductControllerTest {
         productDTO.setProductName("updatedName");
         productDTO.setQuantity(8);
 
-        Mockito.when(productService.updateProduct(Mockito.anyLong(), Mockito.any(), Mockito.anyString()))
+        when(productService.updateProduct(Mockito.anyLong(), Mockito.any(), Mockito.anyString()))
                 .thenReturn(productDTO);
 
         mockMvc.perform(put("/api/products/update/{id}", productDTO.getProductId())
@@ -174,7 +178,7 @@ public class ProductControllerTest {
                 )
         );
 
-        Mockito.when(productService.groupProductsByCategory()).thenReturn(groupedProducts);
+        when(productService.groupProductsByCategory()).thenReturn(groupedProducts);
 
         mockMvc.perform(get("/api/products/grouped-by-category"))
                 .andExpect(status().isOk())
@@ -183,6 +187,25 @@ public class ProductControllerTest {
                 .andExpect(jsonPath("$.Electronics[1].productName").value("Smartphone"))
                 .andExpect(jsonPath("$.Furniture.size()").value(1))
                 .andExpect(jsonPath("$.Furniture[0].productName").value("Table"));
+    }
+
+    @Test
+    void getPagedProducts_ShouldReturnPagedProducts() throws Exception {
+        List<ProductByCategoryDTO> products = List.of(
+                new ProductByCategoryDTO(1L, "ProductA", 1000, 5, category.getCategoryName()),
+                new ProductByCategoryDTO(2L, "ProductB", 1500, 7, category.getCategoryName())
+        );
+
+        Page<ProductByCategoryDTO> productPage = new PageImpl<>(products);
+        when(productService.getPagedSortedProducts(0, 2)).thenReturn(productPage);
+
+        mockMvc.perform(get("/api/products")
+                        .param("page", "0")
+                        .param("size", "2")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content[0].productName").value("ProductA"))
+                .andExpect(jsonPath("$.content[1].productName").value("ProductB"));
     }
 
 }

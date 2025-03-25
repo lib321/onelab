@@ -12,12 +12,15 @@ import com.onelab.microservices.repository.CategoryRepository;
 import com.onelab.microservices.repository.ProductRepository;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -78,7 +81,7 @@ public class ProductService {
                 savedProduct.getPrice(),
                 savedProduct.getQuantity(),
                 savedProduct.getCategory().getId(),
-                savedProduct.getLocalDate()
+                savedProduct.getAddedAt()
         );
 
         InventoryItemDTO inventoryItemDTO = new InventoryItemDTO(
@@ -87,8 +90,8 @@ public class ProductService {
                 savedProduct.getPrice(),
                 savedProduct.getQuantity(),
                 savedProduct.getCategory().getCategoryName(),
-                savedProduct.getLocalDate(),
-                savedProduct.getUpdatedDate()
+                savedProduct.getAddedAt(),
+                savedProduct.getUpdatedAt()
         );
 
         try {
@@ -117,7 +120,7 @@ public class ProductService {
                 product.getPrice(),
                 stock,
                 product.getCategory().getId(),
-                product.getUpdatedDate()
+                product.getUpdatedAt()
         );
     }
 
@@ -134,7 +137,7 @@ public class ProductService {
                             product.getPrice(),
                             stock,
                             product.getCategory().getId(),
-                            product.getUpdatedDate()
+                            product.getAddedAt()
                     );
                 })
                 .collect(Collectors.toList());
@@ -168,8 +171,8 @@ public class ProductService {
                 updatedProduct.getPrice(),
                 updatedProduct.getQuantity(),
                 updatedProduct.getCategory().getCategoryName(),
-                updatedProduct.getLocalDate(),
-                updatedProduct.getUpdatedDate()
+                updatedProduct.getAddedAt(),
+                updatedProduct.getUpdatedAt()
         );
 
         try {
@@ -188,7 +191,7 @@ public class ProductService {
                 updatedProduct.getPrice(),
                 updatedProduct.getQuantity(),
                 updatedProduct.getCategory().getId(),
-                updatedProduct.getUpdatedDate()
+                updatedProduct.getUpdatedAt()
         );
     }
 
@@ -227,6 +230,18 @@ public class ProductService {
                                         .sorted(Comparator.comparingInt(ProductByCategoryDTO::getPrice).reversed())
                                         .toList()
                         )
+                ));
+    }
+
+    public Page<ProductByCategoryDTO> getPagedSortedProducts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("price").ascending());
+        return productRepository.findAll(pageable)
+                .map(dto -> new ProductByCategoryDTO(
+                        dto.getId(),
+                        dto.getProductName(),
+                        dto.getPrice(),
+                        dto.getQuantity(),
+                        dto.getCategory().getCategoryName()
                 ));
     }
 

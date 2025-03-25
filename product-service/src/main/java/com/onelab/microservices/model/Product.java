@@ -28,9 +28,9 @@ public class Product {
     private Category category;
 
     @CreationTimestamp
-    private LocalDate localDate;
+    private LocalDate addedAt;
 
     @UpdateTimestamp
-    private LocalDate updatedDate;
+    private LocalDate updatedAt;
 
 }

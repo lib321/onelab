@@ -19,6 +19,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
@@ -243,6 +244,25 @@ public class ProductServiceTest {
         List<ProductByCategoryDTO> furniture = result.get("Furniture");
         assertEquals(1, furniture.size());
         assertEquals("Table", furniture.get(0).getProductName());
+    }
+
+    @Test
+    void getPagedSortedProducts_ShouldReturnPagedProducts() {
+        List<Product> products = List.of(
+                new Product(1L, "ProductA", 1000, 5, category, null, null),
+                new Product(2L, "ProductB", 1500, 7, category, null, null)
+        );
+
+        Page<Product> productPage = new PageImpl<>(products);
+        Pageable pageable = PageRequest.of(0, 2, Sort.by("price").ascending());
+
+        when(productRepository.findAll(pageable)).thenReturn(productPage);
+
+        Page<ProductByCategoryDTO> result = productService.getPagedSortedProducts(0, 2);
+
+        assertEquals(2, result.getContent().size());
+        assertEquals("ProductA", result.getContent().get(0).getProductName());
+        assertEquals("ProductB", result.getContent().get(1).getProductName());
     }
 
     private void mockAdminAccess(boolean isAdmin) {

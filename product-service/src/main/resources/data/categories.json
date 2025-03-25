@@ -1,0 +1,97 @@
+{
+  "categories": [
+    {
+      "categoryName": "Ноутбуки"
+    },
+    {
+      "categoryName": "Смартфоны"
+    },
+    {
+      "categoryName": "Игровые приставки"
+    },
+    {
+      "categoryName": "Телевизоры"
+    },
+    {
+      "categoryName": "Наушники"
+    },
+    {
+      "categoryName": "Фотокамеры"
+    },
+    {
+      "categoryName": "Умные часы"
+    },
+    {
+      "categoryName": "Видеокарты"
+    },
+    {
+      "categoryName": "Планшеты"
+    },
+    {
+      "categoryName": "Мониторы"
+    },
+    {
+      "categoryName": "Дроны"
+    },
+    {
+      "categoryName": "Компьютерные аксессуары"
+    },
+    {
+      "categoryName": "Умный дом"
+    },
+    {
+      "categoryName": "Экшн-камеры"
+    },
+    {
+      "categoryName": "Бытовая техника"
+    },
+    {
+      "categoryName": "Клавиатуры"
+    },
+    {
+      "categoryName": "Аудиотехника"
+    },
+    {
+      "categoryName": "Камеры"
+    },
+    {
+      "categoryName": "Сетевое оборудование"
+    },
+    {
+      "categoryName": "Процессоры"
+    },
+    {
+      "categoryName": "Акустика"
+    },
+    {
+      "categoryName": "Микрокомпьютеры"
+    },
+    {
+      "categoryName": "Мыши"
+    },
+    {
+      "categoryName": "Материнские платы"
+    },
+    {
+      "categoryName": "Охлаждение"
+    },
+    {
+      "categoryName": "SSD"
+    },
+    {
+      "categoryName": "Консоли"
+    },
+    {
+      "categoryName": "Блоки питания"
+    },
+    {
+      "categoryName": "Оперативная память"
+    },
+    {
+      "categoryName": "Внешние аккумуляторы"
+    },
+    {
+      "categoryName": "Стабилизаторы"
+    }
+  ]
+}

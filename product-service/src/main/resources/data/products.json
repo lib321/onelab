@@ -1,0 +1,1095 @@
+{
+  "products": [
+    {
+      "productName": "ASUS ROG Zephyrus G14",
+      "price": 179990,
+      "quantity": 5,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2018-10-23",
+      "updatedAt": "2018-10-23"
+    },
+    {
+      "productName": "Apple MacBook Air M2",
+      "price": 239990,
+      "quantity": 3,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2022-06-15",
+      "updatedAt": "2023-01-10"
+    },
+    {
+      "productName": "Samsung Galaxy S23 Ultra",
+      "price": 499990,
+      "quantity": 10,
+      "category": {
+        "id": 2
+      },
+      "addedAt": "2023-02-01",
+      "updatedAt": "2023-07-20"
+    },
+    {
+      "productName": "Sony PlayStation 5",
+      "price": 269990,
+      "quantity": 7,
+      "category": {
+        "id": 3
+      },
+      "addedAt": "2020-11-12",
+      "updatedAt": "2022-05-18"
+    },
+    {
+      "productName": "LG OLED C1 55''",
+      "price": 599990,
+      "quantity": 4,
+      "category": {
+        "id": 4
+      },
+      "addedAt": "2021-08-30",
+      "updatedAt": "2023-04-15"
+    },
+    {
+      "productName": "Bose QuietComfort 45",
+      "price": 129990,
+      "quantity": 6,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-09-01",
+      "updatedAt": "2023-03-10"
+    },
+    {
+      "productName": "Canon EOS R6",
+      "price": 799990,
+      "quantity": 2,
+      "category": {
+        "id": 6
+      },
+      "addedAt": "2020-07-09",
+      "updatedAt": "2022-12-01"
+    },
+    {
+      "productName": "Apple Watch Series 8",
+      "price": 199990,
+      "quantity": 8,
+      "category": {
+        "id": 7
+      },
+      "addedAt": "2022-09-16",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productName": "NVIDIA GeForce RTX 4090",
+      "price": 1199990,
+      "quantity": 5,
+      "category": {
+        "id": 8
+      },
+      "addedAt": "2022-10-12",
+      "updatedAt": "2023-01-05"
+    },
+    {
+      "productId": 10,
+      "productName": "Microsoft Xbox Series X",
+      "price": 249990,
+      "quantity": 9,
+      "category": {
+        "id": 3
+      },
+      "addedAt": "2020-11-10",
+      "updatedAt": "2022-06-25"
+    },
+    {
+      "productId": 11,
+      "productName": "Samsung Galaxy Tab S8",
+      "price": 319990,
+      "quantity": 4,
+      "category": {
+        "id": 9
+      },
+      "addedAt": "2022-02-09",
+      "updatedAt": "2023-01-12"
+    },
+    {
+      "productId": 12,
+      "productName": "Dell XPS 15",
+      "price": 499990,
+      "quantity": 3,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2021-06-15",
+      "updatedAt": "2022-11-01"
+    },
+    {
+      "productId": 13,
+      "productName": "Google Pixel 7 Pro",
+      "price": 349990,
+      "quantity": 6,
+      "category": {
+        "id": 2
+      },
+      "addedAt": "2022-10-13",
+      "updatedAt": "2023-05-10"
+    },
+    {
+      "productId": 14,
+      "productName": "Sony WH-1000XM5",
+      "price": 149990,
+      "quantity": 5,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-05-20",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 15,
+      "productName": "Asus ROG Strix RTX 3080",
+      "price": 899990,
+      "quantity": 4,
+      "category": {
+        "id": 8
+      },
+      "addedAt": "2020-09-17",
+      "updatedAt": "2023-01-30"
+    },
+    {
+      "productId": 16,
+      "productName": "Apple iPad Pro 12.9'' M2",
+      "price": 649990,
+      "quantity": 3,
+      "category": {
+        "id": 9
+      },
+      "addedAt": "2022-10-26",
+      "updatedAt": "2023-04-22"
+    },
+    {
+      "productId": 17,
+      "productName": "Samsung Odyssey G9",
+      "price": 499990,
+      "quantity": 2,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2021-07-01",
+      "updatedAt": "2022-09-30"
+    },
+    {
+      "productId": 18,
+      "productName": "Lenovo Legion 5 Pro",
+      "price": 379990,
+      "quantity": 7,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2021-08-15",
+      "updatedAt": "2023-06-12"
+    },
+    {
+      "productId": 19,
+      "productName": "DJI Mini 3 Pro",
+      "price": 349990,
+      "quantity": 5,
+      "category": {
+        "id": 11
+      },
+      "addedAt": "2022-05-10",
+      "updatedAt": "2023-02-05"
+    },
+    {
+      "productId": 20,
+      "productName": "Logitech MX Master 3S",
+      "price": 69990,
+      "quantity": 9,
+      "category": {
+        "id": 12
+      },
+      "addedAt": "2022-06-07",
+      "updatedAt": "2023-01-17"
+    },
+    {
+      "productId": 21,
+      "productName": "Philips Hue Smart Bulb",
+      "price": 29990,
+      "quantity": 15,
+      "category": {
+        "id": 13
+      },
+      "addedAt": "2021-03-25",
+      "updatedAt": "2022-11-10"
+    },
+    {
+      "productId": 22,
+      "productName": "Apple AirPods Pro 2",
+      "price": 129990,
+      "quantity": 10,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-09-23",
+      "updatedAt": "2023-03-28"
+    },
+    {
+      "productId": 23,
+      "productName": "Samsung Smart Monitor M8",
+      "price": 229990,
+      "quantity": 4,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2022-04-01",
+      "updatedAt": "2023-02-12"
+    },
+    {
+      "productId": 24,
+      "productName": "GoPro Hero 11 Black",
+      "price": 279990,
+      "quantity": 6,
+      "category": {
+        "id": 14
+      },
+      "addedAt": "2022-09-14",
+      "updatedAt": "2023-04-05"
+    },
+    {
+      "productId": 25,
+      "productName": "Samsung Jet 90",
+      "price": 199990,
+      "quantity": 3,
+      "category": {
+        "id": 15
+      },
+      "addedAt": "2021-05-20",
+      "updatedAt": "2022-10-08"
+    },
+    {
+      "productId": 26,
+      "productName": "Garmin Fenix 7X",
+      "price": 349990,
+      "quantity": 5,
+      "category": {
+        "id": 7
+      },
+      "addedAt": "2022-01-18",
+      "updatedAt": "2023-06-02"
+    },
+    {
+      "productId": 27,
+      "productName": "HyperX Alloy Origins",
+      "price": 89990,
+      "quantity": 7,
+      "category": {
+        "id": 16
+      },
+      "addedAt": "2020-08-10",
+      "updatedAt": "2023-03-09"
+    },
+    {
+      "productId": 28,
+      "productName": "Samsung The Frame 55''",
+      "price": 499990,
+      "quantity": 2,
+      "category": {
+        "id": 4
+      },
+      "addedAt": "2021-09-05",
+      "updatedAt": "2022-12-10"
+    },
+    {
+      "productId": 29,
+      "productName": "Dyson V15 Detect",
+      "price": 289990,
+      "quantity": 4,
+      "category": {
+        "id": 15
+      },
+      "addedAt": "2022-05-01",
+      "updatedAt": "2023-01-25"
+    },
+    {
+      "productId": 30,
+      "productName": "JBL Charge 5",
+      "price": 99990,
+      "quantity": 8,
+      "category": {
+        "id": 17
+      },
+      "addedAt": "2021-07-15",
+      "updatedAt": "2023-03-30"
+    },
+    {
+      "productId": 31,
+      "productName": "Canon EOS R5",
+      "price": 1499990,
+      "quantity": 3,
+      "category": {
+        "id": 18
+      },
+      "addedAt": "2021-06-20",
+      "updatedAt": "2023-05-12"
+    },
+    {
+      "productId": 32,
+      "productName": "Bose QuietComfort 45",
+      "price": 129990,
+      "quantity": 6,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-08-15",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 33,
+      "productName": "MSI GeForce RTX 4070 Ti",
+      "price": 1199990,
+      "quantity": 4,
+      "category": {
+        "id": 8
+      },
+      "addedAt": "2023-01-05",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 34,
+      "productName": "Xiaomi Mi Pad 5",
+      "price": 219990,
+      "quantity": 7,
+      "category": {
+        "id": 9
+      },
+      "addedAt": "2022-07-20",
+      "updatedAt": "2023-03-08"
+    },
+    {
+      "productId": 35,
+      "productName": "LG UltraGear 34GN850",
+      "price": 349990,
+      "quantity": 5,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2021-11-10",
+      "updatedAt": "2022-12-30"
+    },
+    {
+      "productId": 36,
+      "productName": "Razer Blade 17",
+      "price": 899990,
+      "quantity": 2,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2021-12-15",
+      "updatedAt": "2023-05-20"
+    },
+    {
+      "productId": 37,
+      "productName": "Parrot Anafi",
+      "price": 299990,
+      "quantity": 3,
+      "category": {
+        "id": 11
+      },
+      "addedAt": "2020-09-30",
+      "updatedAt": "2022-10-18"
+    },
+    {
+      "productId": 38,
+      "productName": "Corsair K95 RGB Platinum",
+      "price": 109990,
+      "quantity": 8,
+      "category": {
+        "id": 16
+      },
+      "addedAt": "2020-12-10",
+      "updatedAt": "2023-04-22"
+    },
+    {
+      "productId": 39,
+      "productName": "Ecovacs Deebot T9+",
+      "price": 279990,
+      "quantity": 4,
+      "category": {
+        "id": 15
+      },
+      "addedAt": "2022-06-01",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 40,
+      "productName": "Amazon Echo Show 10",
+      "price": 149990,
+      "quantity": 6,
+      "category": {
+        "id": 13
+      },
+      "addedAt": "2021-02-18",
+      "updatedAt": "2022-11-05"
+    },
+    {
+      "productId": 41,
+      "productName": "HyperX Cloud II Wireless",
+      "price": 99990,
+      "quantity": 9,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-01-22",
+      "updatedAt": "2023-03-30"
+    },
+    {
+      "productId": 42,
+      "productName": "BenQ EX3501R",
+      "price": 299990,
+      "quantity": 5,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2021-07-01",
+      "updatedAt": "2022-12-08"
+    },
+    {
+      "productId": 43,
+      "productName": "Nikon Z9",
+      "price": 1899990,
+      "quantity": 3,
+      "category": {
+        "id": 18
+      },
+      "addedAt": "2021-11-20",
+      "updatedAt": "2023-05-30"
+    },
+    {
+      "productId": 44,
+      "productName": "TP-Link Deco X60",
+      "price": 129990,
+      "quantity": 7,
+      "category": {
+        "id": 19
+      },
+      "addedAt": "2022-03-12",
+      "updatedAt": "2023-02-10"
+    },
+    {
+      "productId": 45,
+      "productName": "Xiaomi Smart Pet Feeder",
+      "price": 59990,
+      "quantity": 12,
+      "category": {
+        "id": 13
+      },
+      "addedAt": "2022-08-25",
+      "updatedAt": "2023-04-07"
+    },
+    {
+      "productId": 46,
+      "productName": "Asus TUF Gaming A15",
+      "price": 299990,
+      "quantity": 5,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2021-09-12",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 47,
+      "productName": "Intel Core i9-13900K",
+      "price": 349990,
+      "quantity": 4,
+      "category": {
+        "id": 20
+      },
+      "addedAt": "2022-10-01",
+      "updatedAt": "2023-06-05"
+    },
+    {
+      "productId": 48,
+      "productName": "LG OLED C2 65''",
+      "price": 999990,
+      "quantity": 2,
+      "category": {
+        "id": 4
+      },
+      "addedAt": "2022-04-15",
+      "updatedAt": "2023-05-10"
+    },
+    {
+      "productId": 49,
+      "productName": "Samsung Galaxy Z Fold 4",
+      "price": 1399990,
+      "quantity": 3,
+      "category": {
+        "id": 2
+      },
+      "addedAt": "2022-09-01",
+      "updatedAt": "2023-04-05"
+    },
+    {
+      "productId": 50,
+      "productName": "DJI Air 2S",
+      "price": 499990,
+      "quantity": 5,
+      "category": {
+        "id": 11
+      },
+      "addedAt": "2021-04-15",
+      "updatedAt": "2023-01-28"
+    },
+    {
+      "productId": 51,
+      "productName": "Apple MacBook Air M2",
+      "price": 799990,
+      "quantity": 4,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2022-07-10",
+      "updatedAt": "2023-03-15"
+    },
+    {
+      "productId": 52,
+      "productName": "Samsung Odyssey G9",
+      "price": 749990,
+      "quantity": 3,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2021-06-05",
+      "updatedAt": "2023-02-20"
+    },
+    {
+      "productId": 53,
+      "productName": "Sony WH-1000XM5",
+      "price": 199990,
+      "quantity": 6,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-05-12",
+      "updatedAt": "2023-04-18"
+    },
+    {
+      "productId": 54,
+      "productName": "AMD Ryzen 9 7900X",
+      "price": 349990,
+      "quantity": 4,
+      "category": {
+        "id": 20
+      },
+      "addedAt": "2022-10-10",
+      "updatedAt": "2023-05-05"
+    },
+    {
+      "productId": 55,
+      "productName": "GoPro Hero 11 Black",
+      "price": 299990,
+      "quantity": 5,
+      "category": {
+        "id": 18
+      },
+      "addedAt": "2022-09-15",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 56,
+      "productName": "DJI Mini 3 Pro",
+      "price": 699990,
+      "quantity": 4,
+      "category": {
+        "id": 11
+      },
+      "addedAt": "2022-06-01",
+      "updatedAt": "2023-01-10"
+    },
+    {
+      "productId": 57,
+      "productName": "Razer BlackWidow V4",
+      "price": 159990,
+      "quantity": 8,
+      "category": {
+        "id": 16
+      },
+      "addedAt": "2022-12-01",
+      "updatedAt": "2023-04-30"
+    },
+    {
+      "productId": 58,
+      "productName": "Corsair Virtuoso RGB Wireless",
+      "price": 179990,
+      "quantity": 5,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-03-25",
+      "updatedAt": "2023-02-15"
+    },
+    {
+      "productId": 59,
+      "productName": "Apple iPad Pro 12.9",
+      "price": 899990,
+      "quantity": 4,
+      "category": {
+        "id": 9
+      },
+      "addedAt": "2021-11-15",
+      "updatedAt": "2023-01-20"
+    },
+    {
+      "productId": 60,
+      "productName": "LG Gram 16",
+      "price": 599990,
+      "quantity": 3,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2022-08-30",
+      "updatedAt": "2023-03-10"
+    },
+    {
+      "productId": 61,
+      "productName": "Samsung The Frame 55''",
+      "price": 799990,
+      "quantity": 2,
+      "category": {
+        "id": 4
+      },
+      "addedAt": "2021-09-10",
+      "updatedAt": "2023-02-05"
+    },
+    {
+      "productId": 62,
+      "productName": "Microsoft Surface Laptop 5",
+      "price": 799990,
+      "quantity": 4,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2022-10-05",
+      "updatedAt": "2023-03-25"
+    },
+    {
+      "productId": 63,
+      "productName": "JBL Boombox 3",
+      "price": 249990,
+      "quantity": 5,
+      "category": {
+        "id": 21
+      },
+      "addedAt": "2022-07-15",
+      "updatedAt": "2023-02-20"
+    },
+    {
+      "productId": 64,
+      "productName": "NVIDIA RTX 4080",
+      "price": 1499990,
+      "quantity": 3,
+      "category": {
+        "id": 8
+      },
+      "addedAt": "2023-01-01",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 65,
+      "productName": "Philips Hue Lightstrip Plus",
+      "price": 99990,
+      "quantity": 6,
+      "category": {
+        "id": 13
+      },
+      "addedAt": "2022-04-20",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 66,
+      "productName": "Sony Alpha A7 IV",
+      "price": 1199990,
+      "quantity": 3,
+      "category": {
+        "id": 18
+      },
+      "addedAt": "2021-12-10",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 67,
+      "productName": "Samsung Galaxy Tab S9 Ultra",
+      "price": 899990,
+      "quantity": 4,
+      "category": {
+        "id": 9
+      },
+      "addedAt": "2023-02-05",
+      "updatedAt": "2023-07-10"
+    },
+    {
+      "productId": 68,
+      "productName": "Bose QuietComfort Earbuds II",
+      "price": 229990,
+      "quantity": 5,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-09-15",
+      "updatedAt": "2023-05-12"
+    },
+    {
+      "productId": 69,
+      "productName": "Gigabyte AORUS 17X",
+      "price": 1199990,
+      "quantity": 3,
+      "category": {
+        "id": 1
+      },
+      "addedAt": "2023-01-20",
+      "updatedAt": "2023-06-30"
+    },
+    {
+      "productId": 70,
+      "productName": "Corsair K100 RGB",
+      "price": 189990,
+      "quantity": 7,
+      "category": {
+        "id": 16
+      },
+      "addedAt": "2022-06-10",
+      "updatedAt": "2023-04-22"
+    },
+    {
+      "productId": 71,
+      "productName": "LG OLED C2 65''",
+      "price": 1399990,
+      "quantity": 2,
+      "category": {
+        "id": 4
+      },
+      "addedAt": "2022-11-01",
+      "updatedAt": "2023-06-05"
+    },
+    {
+      "productId": 72,
+      "productName": "Raspberry Pi 4 Model B",
+      "price": 99990,
+      "quantity": 8,
+      "category": {
+        "id": 22
+      },
+      "addedAt": "2021-10-15",
+      "updatedAt": "2023-02-28"
+    },
+    {
+      "productId": 73,
+      "productName": "Apple Watch Ultra",
+      "price": 799990,
+      "quantity": 5,
+      "category": {
+        "id": 7
+      },
+      "addedAt": "2022-09-23",
+      "updatedAt": "2023-05-17"
+    },
+    {
+      "productId": 74,
+      "productName": "SteelSeries Aerox 9 Wireless",
+      "price": 179990,
+      "quantity": 6,
+      "category": {
+        "id": 23
+      },
+      "addedAt": "2022-07-05",
+      "updatedAt": "2023-04-15"
+    },
+    {
+      "productId": 75,
+      "productName": "MSI MEG Z690 Godlike",
+      "price": 1999990,
+      "quantity": 2,
+      "category": {
+        "id": 24
+      },
+      "addedAt": "2022-01-30",
+      "updatedAt": "2023-06-20"
+    },
+    {
+      "productId": 76,
+      "productName": "Google Nest Hub Max",
+      "price": 249990,
+      "quantity": 4,
+      "category": {
+        "id": 13
+      },
+      "addedAt": "2021-09-12",
+      "updatedAt": "2023-02-10"
+    },
+    {
+      "productId": 77,
+      "productName": "Sony X95K 85''",
+      "price": 2499990,
+      "quantity": 2,
+      "category": {
+        "id": 4
+      },
+      "addedAt": "2022-10-07",
+      "updatedAt": "2023-06-25"
+    },
+    {
+      "productId": 78,
+      "productName": "BenQ EX3501R",
+      "price": 299990,
+      "quantity": 5,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2021-11-14",
+      "updatedAt": "2023-05-30"
+    },
+    {
+      "productId": 79,
+      "productName": "Intel Core i9-13900K",
+      "price": 349999,
+      "quantity": 3,
+      "category": {
+        "id": 20
+      },
+      "addedAt": "2022-11-10",
+      "updatedAt": "2023-07-01"
+    },
+    {
+      "productId": 80,
+      "productName": "DJI Mavic 3 Pro",
+      "price": 1199990,
+      "quantity": 3,
+      "category": {
+        "id": 11
+      },
+      "addedAt": "2023-02-18",
+      "updatedAt": "2023-07-10"
+    },
+    {
+      "productId": 81,
+      "productName": "HyperX Cloud Alpha Wireless",
+      "price": 159990,
+      "quantity": 5,
+      "category": {
+        "id": 5
+      },
+      "addedAt": "2022-04-05",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 82,
+      "productName": "Corsair iCUE H150i Elite",
+      "price": 299990,
+      "quantity": 4,
+      "category": {
+        "id": 25
+      },
+      "addedAt": "2022-05-20",
+      "updatedAt": "2023-06-25"
+    },
+    {
+      "productId": 83,
+      "productName": "Western Digital Black SN850X 2TB",
+      "price": 279990,
+      "quantity": 6,
+      "category": {
+        "id": 26
+      },
+      "addedAt": "2022-08-30",
+      "updatedAt": "2023-07-05"
+    },
+    {
+      "productId": 84,
+      "productName": "Apple Mac Mini M2 Pro",
+      "price": 799990,
+      "quantity": 3,
+      "category": {
+        "id": 22
+      },
+      "addedAt": "2023-01-10",
+      "updatedAt": "2023-07-15"
+    },
+    {
+      "productId": 85,
+      "productName": "Samsung 990 Pro 1TB",
+      "price": 199990,
+      "quantity": 7,
+      "category": {
+        "id": 26
+      },
+      "addedAt": "2022-10-20",
+      "updatedAt": "2023-06-30"
+    },
+    {
+      "productId": 86,
+      "productName": "Razer Naga X",
+      "price": 129990,
+      "quantity": 5,
+      "category": {
+        "id": 23
+      },
+      "addedAt": "2022-07-12",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 87,
+      "productName": "LG UltraFine 5K",
+      "price": 1199990,
+      "quantity": 2,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2021-12-20",
+      "updatedAt": "2023-05-25"
+    },
+    {
+      "productId": 88,
+      "productName": "GIGABYTE RTX 4070 Ti",
+      "price": 1099990,
+      "quantity": 3,
+      "category": {
+        "id": 8
+      },
+      "addedAt": "2023-03-15",
+      "updatedAt": "2023-07-20"
+    },
+    {
+      "productId": 89,
+      "productName": "Sony PlayStation 5 Digital",
+      "price": 449990,
+      "quantity": 4,
+      "category": {
+        "id": 27
+      },
+      "addedAt": "2021-08-10",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 90,
+      "productName": "Microsoft Xbox Series X",
+      "price": 459990,
+      "quantity": 4,
+      "category": {
+        "id": 27
+      },
+      "addedAt": "2020-11-10",
+      "updatedAt": "2023-06-10"
+    },
+    {
+      "productId": 91,
+      "productName": "ASUS ROG Strix 850W Gold",
+      "price": 199990,
+      "quantity": 6,
+      "category": {
+        "id": 28
+      },
+      "addedAt": "2021-07-15",
+      "updatedAt": "2023-06-20"
+    },
+    {
+      "productId": 92,
+      "productName": "JBL Xtreme 3",
+      "price": 179990,
+      "quantity": 5,
+      "category": {
+        "id": 21
+      },
+      "addedAt": "2022-02-28",
+      "updatedAt": "2023-05-30"
+    },
+    {
+      "productId": 93,
+      "productName": "GoPro HERO11 Black",
+      "price": 249990,
+      "quantity": 4,
+      "category": {
+        "id": 14
+      },
+      "addedAt": "2022-09-14",
+      "updatedAt": "2023-06-15"
+    },
+    {
+      "productId": 94,
+      "productName": "ADATA XPG Lancer 32GB DDR5",
+      "price": 299990,
+      "quantity": 7,
+      "category": {
+        "id": 29
+      },
+      "addedAt": "2023-01-25",
+      "updatedAt": "2023-06-30"
+    },
+    {
+      "productId": 95,
+      "productName": "Samsung Odyssey G9",
+      "price": 999990,
+      "quantity": 3,
+      "category": {
+        "id": 10
+      },
+      "addedAt": "2022-03-12",
+      "updatedAt": "2023-07-10"
+    },
+    {
+      "productId": 96,
+      "productName": "Anker PowerCore 26800",
+      "price": 99990,
+      "quantity": 6,
+      "category": {
+        "id": 30
+      },
+      "addedAt": "2021-05-08",
+      "updatedAt": "2023-05-20"
+    },
+    {
+      "productId": 97,
+      "productName": "Canon EOS R5",
+      "price": 1599990,
+      "quantity": 2,
+      "category": {
+        "id": 18
+      },
+      "addedAt": "2020-10-18",
+      "updatedAt": "2023-06-05"
+    },
+    {
+      "productId": 98,
+      "productName": "NZXT Kraken X73 RGB",
+      "price": 289990,
+      "quantity": 4,
+      "category": {
+        "id": 25
+      },
+      "addedAt": "2022-07-20",
+      "updatedAt": "2023-07-01"
+    },
+    {
+      "productId": 99,
+      "productName": "Logitech G Pro X Superlight",
+      "price": 149990,
+      "quantity": 5,
+      "category": {
+        "id": 23
+      },
+      "addedAt": "2022-11-22",
+      "updatedAt": "2023-06-25"
+    },
+    {
+      "productId": 100,
+      "productName": "DJI RS 3 Pro Combo",
+      "price": 999990,
+      "quantity": 3,
+      "category": {
+        "id": 31
+      },
+      "addedAt": "2022-09-05",
+      "updatedAt": "2023-07-15"
+    }
+  ]
+}
