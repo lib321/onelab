@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/products")
@@ -53,9 +52,7 @@ public class ProductController {
     @PostMapping("/add/category")
     public ResponseEntity<Category> addCategory(@RequestBody Category category,
                                                 @RequestHeader(value = "Authorization", required = false) String authHeader) {
-        return productService.createCategory(Optional.ofNullable(category), authHeader)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.badRequest().build());
+        return ResponseEntity.ok(productService.createCategory(category, authHeader));
     }
 
     @GetMapping("/grouped-by-category")

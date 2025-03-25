@@ -30,7 +30,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -104,7 +103,7 @@ public class ProductControllerTest {
 
     @Test
     void saveCategory() throws Exception {
-        when(productService.createCategory(Mockito.any(), Mockito.anyString())).thenReturn(Optional.of(category));
+        when(productService.createCategory(Mockito.any(), Mockito.anyString())).thenReturn(category);
 
         mockMvc.perform(post("/api/products/add/category")
                         .contentType(MediaType.APPLICATION_JSON)

@@ -1,6 +1,5 @@
 package com.onelab.microservices.dto;
 
-import com.onelab.microservices.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
