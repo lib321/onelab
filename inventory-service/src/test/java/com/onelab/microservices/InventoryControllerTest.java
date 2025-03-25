@@ -96,22 +96,22 @@ public class InventoryControllerTest {
 
     @Test
     void reserveProductTest() throws Exception {
-        InventoryRequestDTO requestDTO = new InventoryRequestDTO(
-                "ProductA", 5, "CustomerA");
-        InventoryResponseDTO responseDTO = new InventoryResponseDTO(
-                1L, "ProductA", 5, "CustomerA", true
-        );
-        Mockito.when(inventoryService.checkAndReserveInventory(requestDTO)).thenReturn(responseDTO);
+        InventoryRequestDTO requestDTO = new InventoryRequestDTO("ProductA", 5, "CustomerA");
+        InventoryResponseDTO responseDTO = new InventoryResponseDTO(1L, "ProductA", 5, "CustomerA", true);
+
+        Mockito.when(inventoryService.checkAndReserveInventory(Mockito.any(InventoryRequestDTO.class)))
+                .thenReturn(responseDTO);
 
         mockMvc.perform(post("/api/inventory/reserve")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(responseDTO)))
+                        .content(objectMapper.writeValueAsString(requestDTO)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.productId").value(1L))
                 .andExpect(jsonPath("$.productName").value("ProductA"))
                 .andExpect(jsonPath("$.quantity").value(5))
                 .andExpect(jsonPath("$.customerName").value("CustomerA"));
     }
+
 
     @Test
     void restockProductTest() throws Exception {

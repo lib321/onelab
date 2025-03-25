@@ -169,7 +169,7 @@ class OrderServiceTest {
         assertEquals(3, result.getItems().get(0).getQuantity());
 
         verify(kafkaProducerService, times(1)).sendMessage(eq("order-events-update"), eq("UPDATE"),
-                any(InventoryUpdateDTO.class));
+                anyList());
 
         verify(orderRepository, times(1)).save(order);
     }

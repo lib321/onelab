@@ -24,29 +24,15 @@ public class InventoryService {
     private final KafkaProducerService kafkaProducerService;
 
     public InventoryItemDTO add(InventoryItemDTO itemDTO) {
-        InventoryItem item = new InventoryItem(
-                null, itemDTO.getProductId(),
-                itemDTO.getProductName(),
-                itemDTO.getPrice(),
-                itemDTO.getQuantity(),
-                itemDTO.getCategoryName(),
-                itemDTO.getAddedAt(),
-                itemDTO.getUpdatedAt()
-        );
         if (inventoryRepository.existsByProductId(itemDTO.getProductId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Продукт с таким id уже существует");
         }
+        InventoryItem item = new InventoryItem(null, itemDTO.getProductId(), itemDTO.getProductName(),
+                itemDTO.getPrice(), itemDTO.getQuantity(), itemDTO.getCategoryName(),
+                itemDTO.getAddedAt(), itemDTO.getUpdatedAt());
 
         inventoryRepository.save(item);
-        return new InventoryItemDTO(
-                item.getProductId(),
-                item.getProductName(),
-                item.getPrice(),
-                item.getQuantity(),
-                item.getCategoryName(),
-                item.getAddedAt(),
-                item.getUpdatedAt()
-        );
+        return convertToDTO(item);
     }
 
     @Transactional
@@ -58,20 +44,19 @@ public class InventoryService {
             kafkaProducerService.sendMessage("order-events", "NOT_ENOUGH", request);
             return new InventoryResponseDTO(null, request.getProductName(), request.getQuantity(), request.getCustomerName(), false);
         }
+
         item.setQuantity(item.getQuantity() - request.getQuantity());
         item.setUpdatedAt(LocalDate.now());
-        InventoryItem updatedItem = inventoryRepository.save(item);
+        inventoryRepository.save(item);
+
         kafkaProducerService.sendMessage("order-events", "CONFIRMED", request);
-        kafkaProducerService.sendMessage("product-quantity-update", "UPDATE", new UpdateQuantityDTO(
-                updatedItem.getProductId(), updatedItem.getQuantity()));
+        kafkaProducerService.sendMessage("product-quantity-update", "UPDATE", new UpdateQuantityDTO(item.getProductId(), item.getQuantity()));
+
         return new InventoryResponseDTO(item.getProductId(), item.getProductName(), request.getQuantity(), request.getCustomerName(), true);
     }
 
     public int getStockByProductId(Long productId) {
-        InventoryItem item = inventoryRepository.findByProductId(productId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Продукт не найден"));
-
-        return item.getQuantity();
+        return getInventoryItemByProductId(productId).getQuantity();
     }
 
     @Transactional(readOnly = true)
@@ -85,42 +70,26 @@ public class InventoryService {
 
     @Transactional
     public InventoryItemDTO restockProduct(InventoryItemDTO inventoryItemDTO) {
-        InventoryItem item = inventoryRepository.findByProductId(inventoryItemDTO.getProductId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Продукт не найден"));
+        InventoryItem item = getInventoryItemByProductId(inventoryItemDTO.getProductId());
 
         item.setQuantity(inventoryItemDTO.getQuantity());
         item.setProductName(inventoryItemDTO.getProductName());
         item.setUpdatedAt(LocalDate.now());
+
         inventoryRepository.save(item);
-        return new InventoryItemDTO(
-                item.getProductId(),
-                item.getProductName(),
-                item.getPrice(),
-                item.getQuantity(),
-                item.getCategoryName(),
-                item.getAddedAt(),
-                item.getUpdatedAt()
-        );
+        return convertToDTO(item);
     }
 
     public boolean isStockLow(Long productId) {
-        int stock = getStockByProductId(productId);
-        return stock < 2;
+        return getStockByProductId(productId) < 2;
     }
 
     @Transactional(readOnly = true)
     public List<InventoryItemDTO> getAllItems() {
         List<InventoryItemDTO> items = new ArrayList<>();
         inventoryRepository.findAll().forEach(item ->
-                items.add(new InventoryItemDTO(
-                        item.getProductId(),
-                        item.getProductName(),
-                        item.getPrice(),
-                        item.getQuantity(),
-                        item.getCategoryName(),
-                        item.getAddedAt(),
-                        item.getUpdatedAt()))
-        );
+                items.add(convertToDTO(item)
+        ));
         return items;
     }
 
@@ -145,33 +114,37 @@ public class InventoryService {
 
     @Transactional
     public void updateInventory(InventoryUpdateDTO updateDTO) {
-        Optional<InventoryItem> inventoryItemOpt = inventoryRepository.findByProductId(updateDTO.getProductId());
+        InventoryItem item = getInventoryItemByProductId(updateDTO.getProductId());
 
-        if (inventoryItemOpt.isPresent()) {
-            InventoryItem inventoryItem = inventoryItemOpt.get();
+        item.setQuantity(item.getQuantity() - (updateDTO.getNewQuantity() - updateDTO.getOldQuantity()));
+        item.setUpdatedAt(LocalDate.now());
 
-            int quantityChange = updateDTO.getNewQuantity() - updateDTO.getOldQuantity();
-            inventoryItem.setQuantity(inventoryItem.getQuantity() - quantityChange);
-            inventoryItem.setUpdatedAt(LocalDate.now());
-            InventoryItem updatedItem = inventoryRepository.save(inventoryItem);
-            kafkaProducerService.sendMessage("product-quantity-update", "UPDATE", new UpdateQuantityDTO(
-                    updatedItem.getProductId(), updatedItem.getQuantity()));
-        }
+        inventoryRepository.save(item);
+        kafkaProducerService.sendMessage("product-quantity-update", "UPDATE", new UpdateQuantityDTO(item.getProductId(), item.getQuantity()));
     }
 
     public List<ItemDTO> getItemsByCategoryAndPriceRange(String category, int min, int max) {
-        return inventoryRepository.findByCategoryAndPriceRange(category, min, max)
-                .stream()
+        return inventoryRepository.findByCategoryAndPriceRange(category, min, max).stream()
                 .map(item -> new ItemDTO(item.getProductName(), item.getPrice(), item.getQuantity()))
                 .sorted(Comparator.comparingInt(ItemDTO::price))
                 .collect(Collectors.toList());
     }
 
+
     public List<ItemDTO> searchByProductName(String keyword) {
-        return inventoryRepository.findByProductNameMatch(keyword)
-                .stream()
+        return inventoryRepository.findByProductNameMatch(keyword).stream()
                 .map(item -> new ItemDTO(item.getProductName(), item.getPrice(), item.getQuantity()))
                 .collect(Collectors.toList());
+    }
+
+    private InventoryItem getInventoryItemByProductId(Long productId) {
+        return inventoryRepository.findByProductId(productId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Продукт не найден"));
+    }
+
+    private InventoryItemDTO convertToDTO(InventoryItem item) {
+        return new InventoryItemDTO(item.getProductId(), item.getProductName(), item.getPrice(),
+                item.getQuantity(), item.getCategoryName(), item.getAddedAt(), item.getUpdatedAt());
     }
 
 }
