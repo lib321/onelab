@@ -27,9 +27,14 @@ public class InventoryService {
         if (inventoryRepository.existsByProductId(itemDTO.getProductId())) {
             throw new ResponseStatusException(HttpStatus.CONFLICT, "Продукт с таким id уже существует");
         }
-        InventoryItem item = new InventoryItem(null, itemDTO.getProductId(), itemDTO.getProductName(),
-                itemDTO.getPrice(), itemDTO.getQuantity(), itemDTO.getCategoryName(),
-                itemDTO.getAddedAt(), itemDTO.getUpdatedAt());
+        InventoryItem item = InventoryItem.builder()
+                .productId(itemDTO.getProductId())
+                .productName(itemDTO.getProductName())
+                .price(itemDTO.getPrice())
+                .quantity(itemDTO.getQuantity())
+                .categoryName(itemDTO.getCategoryName())
+                .addedAt(itemDTO.getAddedAt())
+                .updatedAt(itemDTO.getUpdatedAt()).build();
 
         inventoryRepository.save(item);
         return convertToDTO(item);
@@ -42,7 +47,7 @@ public class InventoryService {
 
         if (item.getQuantity() < request.getQuantity()) {
             kafkaProducerService.sendMessage("order-events", "NOT_ENOUGH", request);
-            return new InventoryResponseDTO(null, request.getProductName(), request.getQuantity(), request.getCustomerName(), false);
+            return new InventoryResponseDTO(item.getProductId(), request.getProductName(), request.getQuantity(), request.getCustomerName(), false);
         }
 
         item.setQuantity(item.getQuantity() - request.getQuantity());

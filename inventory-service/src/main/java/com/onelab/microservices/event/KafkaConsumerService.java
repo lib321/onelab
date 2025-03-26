@@ -46,7 +46,7 @@ public class KafkaConsumerService {
     public void consumeOrderEvent(KafkaMessageDTO message) {
         log.info("Получено Kafka сообщение: action='{}', data={}", message.getAction(), message.getData());
         switch (message.getAction()) {
-            case "CREATED" -> log.info("Запрос на создание заказа: {}", convertToDTO(message.getData()));
+            case "CREATE" -> log.info("Запрос на создание заказа: {}", convertToDTO(message.getData()));
             case "DELETE" -> log.info("Удален заказ: {}", message.getData());
             default -> log.warn("Неизвестное действие: {}", message.getAction());
         }

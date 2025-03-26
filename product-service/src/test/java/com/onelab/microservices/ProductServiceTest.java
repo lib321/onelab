@@ -147,7 +147,7 @@ public class ProductServiceTest {
 
         productService.deleteProduct(1L, AUTH_HEADER);
 
-        verify(productRepository).deleteById(1L);
+        verify(productRepository, times(1)).deleteById(1L);
         verify(kafkaProducerService).sendMessage(eq("product-events"), eq("DELETE"), anyString());
     }
 
@@ -161,6 +161,7 @@ public class ProductServiceTest {
 
         assertEquals(HttpStatus.NOT_FOUND, ex.getStatusCode());
         assertEquals("Продукт не найден", ex.getReason());
+        verify(productRepository, never()).delete(any());
     }
 
 

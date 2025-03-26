@@ -50,7 +50,6 @@ class OrderServiceTest {
     private final String AUTH_HEADER = "Bearer token";
 
     private OrderRequestDTO orderRequestDTO;
-    private OrderResponseDTO expectedResponse;
     private Order order;
 
     @BeforeEach
@@ -62,7 +61,6 @@ class OrderServiceTest {
         OrderItem orderItem = new OrderItem(null, 1L, "ProductA", 2, order);
         order.getItems().add(orderItem);
 
-        expectedResponse = new OrderResponseDTO(1L, "CustomerTest", List.of(orderItemDTO));
     }
 
     @Test

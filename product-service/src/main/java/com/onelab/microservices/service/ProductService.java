@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
@@ -79,8 +80,10 @@ public class ProductService {
     public ProductDTO getProductById(Long id) {
         Product product = getProductByIdOrThrow(id);
 
-        int stock = productFeignInterface.getStock(id).getBody();
-        if (product.getQuantity() != stock) {
+        ResponseEntity<Integer> response = productFeignInterface.getStock(id);
+        Integer stock = (response != null) ? response.getBody() : null;
+
+        if (stock != null && product.getQuantity() != stock) {
             product.setQuantity(stock);
             productRepository.save(product);
         }
@@ -91,7 +94,7 @@ public class ProductService {
     public List<ProductDTO> getAllProducts() {
         Map<Long, Integer> stockMap = productFeignInterface.getAllStock().getBody();
         return productRepository.findAll().stream()
-                .map(product -> mapToProductDTO(product, stockMap.getOrDefault(product.getId(), 0)))
+                .map(product -> mapToProductDTO(product, stockMap != null ? stockMap.getOrDefault(product.getId(), 0) : 0))
                 .collect(Collectors.toList());
     }
 

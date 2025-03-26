@@ -147,7 +147,7 @@ public class InventoryServiceTest {
         InventoryItemDTO updatedDTO = new InventoryItemDTO(
                 1L, "Update", 500, 2, "CategoryA",
                 LocalDate.of(2024, 10, 24),
-                LocalDate.of(2024, 10, 28));
+                LocalDate.of(2025, 3, 25));
 
         InventoryItem updatedItem = new InventoryItem(
                 item.getId(), 1L, "Update", 500, 2, "CategoryA",

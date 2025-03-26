@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -141,7 +142,7 @@ public class OrderService {
         kafkaProducerService.sendMessage("order-events", "CREATE", inventoryRequest);
 
         ResponseEntity<InventoryResponseDTO> response = orderFeignInterface.reserveProduct(inventoryRequest);
-        if (!response.getBody().isAvailable()) {
+        if (!Objects.requireNonNull(response.getBody()).isAvailable()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Недостаточно товара: " + item.getProductName());
         }
     }
@@ -194,8 +195,7 @@ public class OrderService {
         }
 
         try {
-            Boolean isAdmin = userFeignInterface.validateUserRole(authHeader, "ADMIN");
-            if (Boolean.FALSE.equals(isAdmin)) {
+            if (!Boolean.TRUE.equals(userFeignInterface.validateUserRole(authHeader, "ADMIN"))) {
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Доступ запрещен");
             }
         } catch (FeignException.Unauthorized e) {
